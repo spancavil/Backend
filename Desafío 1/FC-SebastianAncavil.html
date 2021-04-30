@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafío 1 - Ancavil Sebastián</title>
+</head>
+<body>
+    <script>
+        function Persona (nombre, apellido, libros, mascotas){
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.libros = libros;
+            this.mascotas = mascotas;
+        }
+        Persona.prototype.getFullName = function(){
+            return `${this.nombre} ${this.apellido}`; //Con function funciona, pero con arrow no funciona.
+        }
+
+        Persona.prototype.addMascota = function(nuevaMascota){
+            this.mascotas.push(nuevaMascota);
+        }
+
+        Persona.prototype.getMascotas = function(){
+            return this.mascotas.length;
+        }
+
+        Persona.prototype.addBook = function(book, autor){
+            this.libros.push({nombre: book, autor: autor});
+        }
+
+        Persona.prototype.getBooks = function(){
+            return this.libros.map(elemento => elemento.nombre);
+        }
+
+        let sebastian = new Persona ("Sebastián", "Ancavil", [{nombre: "Al final del Túnel", autor:"Ernesto Sábato"}, {nombre: "El Principito", autor: "Antoine Exupery"}], ["Reina", "Taly"])
+
+        console.log(sebastian.getFullName())
+        sebastian.addMascota("Michu");
+
+        console.log(sebastian.getMascotas());
+
+        sebastian.addBook("Fisiología", "Houssay");
+
+        console.log(sebastian.getBooks());
+
+    </script>
+</body>
+</html>

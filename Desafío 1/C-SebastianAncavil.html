@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Persona {
+            constructor (nombre, apellido, libros, mascotas){
+                this.nombre = nombre;
+                this.apellido = apellido;
+                this.libros = libros;
+                this.mascotas = mascotas;
+            }
+
+            getFullName (){
+                return `${this.nombre} ${this.apellido}`;
+            }
+
+            addMascota (nuevaMascota){
+                this.mascotas.push(nuevaMascota);
+            }
+
+            getMascotas(){
+                return this.mascotas.length;
+            }
+
+            addBook(book, autor){
+                this.libros.push({nombre: book, autor: autor});
+            }
+
+            getBooks(){
+                return this.libros.map(elemento => elemento.nombre);
+            }
+        }
+
+        let sebastian = new Persona ("Sebastián", "Ancavil", [{nombre: "Al final del Túnel", autor:"Ernesto Sábato"}, {nombre: "El Principito", autor: "Antoine Exupery"}], ["Reina", "Taly"])
+
+        console.log(sebastian.getFullName())
+        sebastian.addMascota("Michu");
+
+        console.log(sebastian.getMascotas());
+
+        sebastian.addBook("Fisiología", "Houssay");
+
+        console.log(sebastian.getBooks());
+        
+    </script>
+</body>
+</html>
