@@ -21,5 +21,6 @@ Hacer los cambios pertinentes y seguir los pasos 3 y 4.
 
 6)En caso de querer hacer algún borrado de archivos o algo:
 git rm "archivo"
-Y luego commitear y pushear.
+y para deletear carpetas enteras hay que hacerlo recursivamente con -r git rm -r "carpeta"
+Y luego addear, commitear y pushear.
 
