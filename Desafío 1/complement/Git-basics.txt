@@ -19,3 +19,7 @@ git push
 git pull
 Hacer los cambios pertinentes y seguir los pasos 3 y 4.
 
+6)En caso de querer hacer algún borrado de archivos o algo:
+git rm "archivo"
+Y luego commitear y pushear.
+
