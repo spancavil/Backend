@@ -1,0 +1,21 @@
+1)
+git config --global user.name "spancavil"
+git config --global user.email "soancavil@gmail.com"
+git config --global color.ui true
+git config --list
+
+2) En el directory deseado
+git init para inicializar un repo. Por defecto se ubica en main.
+git status (ver el estado de mi repo)
+
+3)Hacer los cambios pertinentes en VSCode y luego hacer los adds
+git add . (el punto es para agregar todos los cambios hechos)
+git commit -m "El mensaje obligatorio que dice lo que se hizo"
+
+4)Publicar los cambios en el repo, o hacer "push"
+git push
+
+5)En caso de que los cambios se hayan hecho en el repo remoto necesitamos traer esos cambios con:
+git pull
+Hacer los cambios pertinentes y seguir los pasos 3 y 4.
+
