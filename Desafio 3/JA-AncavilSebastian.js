@@ -40,7 +40,7 @@ const tiempo = 500;
 mostrarPalabras(texto1, tiempo, 0, (totalPalabras, err) => {
     mostrarPalabras(texto2, tiempo, totalPalabras, (totalPalabras, err) => {
         mostrarPalabras(texto3, tiempo, totalPalabras, (totalPalabras, err) => {
-            console.log('Proceso terminado, cantidad de palabras:' + totalPalabras);
+            console.log('Proceso terminado, cantidad de palabras: ' + totalPalabras);
         });
     });
 });

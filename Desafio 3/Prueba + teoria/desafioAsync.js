@@ -16,8 +16,7 @@ const mostrarLetras = async (cadena, tiempo, callback) => {
         console.log (char);
         await esperar(tiempo);
     }
-   
-    return callback(); //llamamos al callback desde la llamada a la función, se ejecuta siempre al final.
+    callback(); //llamamos al callback desde la llamada a la función, se ejecuta siempre al final.
 }
 const fin = () => { console.log ("Termine! ")}
 
