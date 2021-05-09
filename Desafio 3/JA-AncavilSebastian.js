@@ -41,7 +41,7 @@ const mostrarPalabras = async (texto, tiempo, cantidadPalabras, callback) => {
 let texto1 = 'primer texto';
 let texto2 = 'curso backend de coderhouse';
 let texto3 = 'probando llamadas asincronas en nodejs';
-const tiempo = 1000;
+let palabras = texto1.split(" ").concat(texto2.split(" ")).concat(texto3.split(" "))
 
 //Generamos la entrada del usuario mediante input.
 const inputTime = require('readline').createInterface({
@@ -51,8 +51,13 @@ const inputTime = require('readline').createInterface({
 
 //Question sería una especie de prompt, que genera un callback.
 inputTime.question('Ingrese un tiempo en segundos o deje en blanco (default 1 seg):', tiempo => {
-    console.log (tiempo*=1000);
+    console.log ("Tiempo seleccionado en ms: ", tiempo*=1000);
+
+    //Mostrar palabras utilizando promises:
     tiempo ?  showWords (tiempo): showWords (1000);
+
+    //Mostrar palabras utilzando setInterval:
+    tiempo ? showWordsInterval (tiempo): showWordsInterval (1000);
     inputTime.close();
 });
 
@@ -60,11 +65,22 @@ function showWords (time) {
     mostrarPalabras(texto1, time, 0, (totalPalabras, err) => {
         mostrarPalabras(texto2, time, totalPalabras, (totalPalabras, err) => {
             mostrarPalabras(texto3, time, totalPalabras, (totalPalabras, err) => {
-                console.log('Proceso terminado, cantidad de palabras: ' + totalPalabras);
+                console.log('Proceso terminado con promises, cantidad de palabras: ' + totalPalabras);
             });
         })
     });
 }
+
+function showWordsInterval (time){
+    let i = 0;
+    const show = setInterval( () => {
+        console.log(palabras[i])
+        i++;
+        i === palabras.length ? (clearInterval(show), console.log (`Fin del interval! La cantidad total de palabras fue de: ${i}`)): null;
+    } 
+    , time);
+}
+
 
 /*Comentario Angie:
 Hola, Sebastian. Muy buen trabajo! 
