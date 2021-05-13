@@ -57,7 +57,7 @@
         //Utilizo el método pipe que ya viene dentro de los operadores de RxJs
 
         const miObservablePipeado = source(miNodo, 'input').pipe(
-            tap(dato => console.log('pipe:', dato)),
+            tap(dato => console.log('pipe:', dato)), //Tap no le hace nada a los datos, los devuelve así como los obtuvo.
             map(dato => dato.split('')),
             map(array => {
                 array.reverse()
