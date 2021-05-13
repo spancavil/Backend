@@ -1,0 +1,14 @@
+El yield es como una pausa, y la funcion se queda ahi, cuando se llama otra vez es como si se le diera play nuevamente y el contexto de ejecucion se mantiene, por eso sigue con el siguiente numero
+
+function* generatorUnreacheableValue() {
+   console.log("Iniciando generator function");
+   yield "First";
+   yield "Second";
+   return "Return";
+   yield "Unreacheable"
+  }
+ var generatorObject = generatorUnreacheableValue();
+ console.log(generatorObject.next()); // <-- {done: false, value: "First reacheable value"}
+ console.log(generatorObject.next()); // <-- {done: false, value: "Second reacheable value"}
+ console.log(generatorObject.next()); // <-- {done: true, value: "Return executed"}
+ console.log(generatorObject.next()); // <-- {done: true, value: undefined}

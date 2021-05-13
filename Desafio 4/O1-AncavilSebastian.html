@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entregable 1</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.min.js"></script>
+</head>
+
+<body>
+    <input type="text">
+    <span></span>
+
+    <script>
+        const { Observable, pipe } = rxjs
+        const { map } = rxjs.operators
+
+        //Al llamar a source me devuelve un observable que hace un reverse del value del input.
+        const source = (nodo, evento) => {
+            //Se retorna un Observable (objeto que proviene de rxjs)
+            return new Observable(observador => {
+
+                //Función que se ejecutara cuando detecte el evento en el nodo que le pasé por parámetro.
+                function handlerFunction() {
+                    let dato = document.querySelector('input').value
+
+                    if (dato == 'error') {
+                        observador.error('Error de entrada')
+                    }
+                    else if (dato == 'complete') {
+                        observador.complete()
+                    }
+                    else {
+                        let datoEspejado = dato.split("").reverse().join("");
+                        console.log(dato.split(""));
+                        observador.next(datoEspejado);
+                    }
+                }
+
+                //Aquí agrego el listener pasándole el evento y la funcion a ejecutar. Esto es lo primero que se hace.
+                nodo.addEventListener(evento, handlerFunction)
+
+                //Al dar error, complete o desuscripción
+                //elimino el listener y limpio el input, lo deshabilito y entrego un warn.
+                return () => {
+                    nodo.removeEventListener('input', handlerFunction)
+                    nodo.disabled = true
+                    document.querySelector('span').innerText = ''
+                    console.warn('Observable Input return')
+                }
+            })
+        }
+
+        //Declaro la lógica del observador al recibir los datos.
+        const observador = {
+            next: dato => {document.querySelector('span').innerText = dato},
+            error: error => console.error(error),
+            complete: () => console.warn('Observable Input complete')
+        }
+
+        //Declaro el nodo que será parámetro para mi observable.
+        const miNodo = document.querySelector('input');
+
+        //Declaro al observable con el nodo y el evento a observar.
+        const miObservable = source(miNodo, 'input');
+
+        //Genero la suscripción.
+        miObservable.subscribe(observador);
+
+        //A los 30 segundos se cancela la suscripción
+        setTimeout(() => {
+            console.warn('Observable Input desuscripción (time out)')
+            espejarInputObservable.unsubscribe()
+        }, 30000)
+
+    </script>
+
+</body>
+
+</html>

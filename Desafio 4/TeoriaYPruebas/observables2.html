@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entregable 2</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.min.js"></script>
+</head>
+
+<body>
+    <input id="entrada" type="text">
+    <span></span>
+
+    <script>
+        const { Observable } = rxjs
+
+        // const $input = document.getElementById('entrada');
+        // const source$ =  fromEvent($input, 'input');
+
+        // const subscription = source$.subscribe((event) => {
+        //     console.log('Event :', event.data);
+        //     let inputData = document.querySelector('#entrada');
+        //     if (inputData.value === "error"){ 
+        //         console.log(source$.error);
+        //         console.log ("Hola!")
+        //     }
+        //     document.querySelector('span').innerText = inputData.value.split("").reverse().join("");
+        //     },
+        //     (err) => {
+        //         error => console.error(error)
+        //     },
+        //     () => console.warn('Observable Input complete ')
+        // );
+
+        const fromInput = (node, name) => { return new Observable((Suscriptor) => {
+            function handler(event) {
+                let dato = document.querySelector('input').value
+
+                if (dato == 'error') {
+                    Suscriptor.error('Error de entrada!')
+                }
+                else if (dato == 'complete') {
+                    Suscriptor.complete()
+                }
+                else {
+                    // TODO espejar el string (dato) usando array.reverse()
+                    let datoEspejado = dato.split("").reverse().join("");
+                    console.log(dato.split(""));
+                    Suscriptor.next(datoEspejado);
+                }
+
+            //Aquí comienza todo con el addEventListener:
+            node.addEventListener(name, handler);
+
+            //El return se ejecuta al desuscribirse.
+            return () => {
+                    node.removeEventListener(name, handler);
+                    document.querySelector('input').disabled = true;
+                    document.querySelector('span').innerText = '';
+                    console.warn('Observable Input return');
+                };
+            }
+        });}
+
+        const nodoInput = document.getElementById('entrada');
+
+        nuevoSuscriptor = fromInput(nodoInput, 'input').suscribe({
+            next: data => document.querySelector('span').innerText = dato,
+            error: err => console.log("Error: " + err),
+            complete: () => console.warn('Observable Input complete')
+        });
+
+        setTimeout(() => {
+            console.warn('Observable Input desuscripción (time out)');
+            nuevoSuscriptor.unsubscribe();
+        }, 30000)
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entregable 2</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.min.js"></script>
+</head>
+
+<body>
+    <input type="text">
+    <span></span>
+
+    <script>
+        const { Observable, pipe } = rxjs
+        const { map, tap } = rxjs.operators
+
+        //SOURCE Y OBSERVADOR IDENTICOS AL DE LA CONSIGNA 1
+        const source = (nodo, evento) => {
+            return new Observable(suscriber => {
+
+                function handlerFunction() {
+                    let dato = document.querySelector('input').value
+
+                    if (dato == 'error') {
+                        suscriber.error('Error de entrada')
+                    }
+                    else if (dato == 'complete') {
+                        suscriber.complete()
+                    }
+                    else {
+                        suscriber.next(dato)
+                    }
+                }
+
+                nodo.addEventListener(evento, handlerFunction)
+
+                return () => {
+                    document.querySelector('input').removeEventListener('input', ateEventInput)
+                    document.querySelector('input').disabled = true
+                    document.querySelector('span').innerText = ''
+                    console.warn('Observable Input return')
+                }
+            })
+        }
+
+        const observador = {
+            next: dato => {document.querySelector('span').innerText = dato},
+            error: error => console.error(error),
+            complete:() => console.warn('Observable Input complete ')
+        }
+
+        const miNodo = document.querySelector('input');
+
+        //Ahora al observable le hago un procedimiento intermedio antes de devolver los valores
+        //Utilizo el método pipe que ya viene dentro de los operadores de RxJs
+
+        const miObservablePipeado = source(miNodo, 'input').pipe(
+            tap(dato => console.log('pipe:', dato)),
+            map(dato => dato.split('')),
+            map(array => {
+                array.reverse()
+                return array
+            }),
+            map(array => array.join('')),)
+
+        miObservablePipeado.suscribe(observador);
+
+        setTimeout(() => {
+            console.warn('Observable Input desuscripción ');
+            miObservablePipeado.unsubscribe();
+        }, 30000)
+
+    </script>
+
+</body>
+
+</html>
