@@ -1,0 +1,9 @@
+Utiliza un bucle de eventos para bloquear todos los recursos. El demultiplexor envía el recurso al despachador cuando es posible iniciar una operación síncrona en un recurso sin bloquear ( Ejemplo: una llamada síncrona a read()se bloqueará si no hay datos para leer. El demultiplexor usa select()en el recurso, que bloquea hasta que el El recurso está disponible para lectura. En este caso, una llamada síncrona a read()no se bloqueará y el demultiplexor puede enviar el recurso al despachador).
+
+http://latentflip.com/loupe/?code=CgpmdW5jdGlvbiBzYWx1ZGFyTWFzVGFyZGUoKXsKCXZhciBzY[…]dWRhck1hc1RhcmRlKCk7!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D
+
+https://medium.com/@nicomf1982/reactor-pattern-en-node-js-4f25ee703299
+
+https://searchapparchitecture.techtarget.com/definition/RESTful-API
+
+https://blog.nearsoftjobs.com/entendiendo-la-magia-detr%C3%A1s-de-nodejs-y-su-event-loop-8335e3b35e58
