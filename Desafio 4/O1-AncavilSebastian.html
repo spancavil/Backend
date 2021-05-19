@@ -37,7 +37,6 @@
                         observador.next(datoEspejado);
                     }
                 }
-
                 //Aquí agrego el listener pasándole el evento y la funcion a ejecutar. Esto es lo primero que se hace.
                 nodo.addEventListener(evento, handlerFunction)
 
@@ -64,14 +63,15 @@
 
         //Declaro al observable con el nodo y el evento a observar.
         const miObservable = source(miNodo, 'input');
+        console.log(miObservable)
 
         //Genero la suscripción.
-        miObservable.subscribe(observador);
+        const suscripcion = miObservable.subscribe(observador);
 
         //A los 30 segundos se cancela la suscripción
         setTimeout(() => {
             console.warn('Observable Input desuscripción (time out)')
-            espejarInputObservable.unsubscribe()
+            suscripcion.unsubscribe()
         }, 30000)
 
     </script>

@@ -22,7 +22,7 @@
 
                 function handlerFunction() {
                     let dato = document.querySelector('input').value
-
+                    console.log(dato);
                     if (dato == 'error') {
                         suscriber.error('Error de entrada')
                     }
@@ -33,11 +33,11 @@
                         suscriber.next(dato)
                     }
                 }
-
+                
                 nodo.addEventListener(evento, handlerFunction)
 
                 return () => {
-                    document.querySelector('input').removeEventListener('input', ateEventInput)
+                    document.querySelector('input').removeEventListener('input', handlerFunction)
                     document.querySelector('input').disabled = true
                     document.querySelector('span').innerText = ''
                     console.warn('Observable Input return')
@@ -63,13 +63,13 @@
                 array.reverse()
                 return array
             }),
-            map(array => array.join('')),)
-
-        miObservablePipeado.suscribe(observador);
+            map(array => array.join('')));
+        
+        const suscripcion = miObservablePipeado.subscribe(observador);
 
         setTimeout(() => {
             console.warn('Observable Input desuscripción ');
-            miObservablePipeado.unsubscribe();
+            suscripcion.unsubscribe();
         }, 30000)
 
     </script>
