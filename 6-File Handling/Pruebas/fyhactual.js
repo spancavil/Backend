@@ -5,9 +5,10 @@
  */
  const fs = require('fs');
 
-data = new Date().toLocaleDateString();
-ruta = './misFechas.txt';
-rutaFalsa = './fechasMalas.txt';
+const today = new Date();
+const data = "Log: " + today.getDate() + "-" + today.getMonth() + "-" + today.getFullYear() + " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+const ruta = './misFechas.txt';
+const rutaFalsa = './fechasMalas.txt';
 escribir(ruta, data);
 leer(ruta);
 leer(rutaFalsa);

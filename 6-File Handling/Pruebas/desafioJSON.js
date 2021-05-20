@@ -20,7 +20,7 @@ fs.readFile(path,(error, data)=> {
         contenido = data;
         console.log (contenido); //Me lo lee en formato de bytes
         objetoBundle = declararObjeto(contenido);
-        guardarArchivo(JSON.stringify(objetoBundle, null, '\t'), pathWrite,);
+        guardarArchivo(JSON.stringify(objetoBundle, null, '\t'), pathWrite);
     }
 })
 
@@ -35,7 +35,7 @@ function declararObjeto(contenido){
 }
 
 function guardarArchivo(objetoBundleString, path){
-    fs.appendFile (path, objetoBundleString, error=>{
+    fs.writeFile(path, objetoBundleString, error=>{
         if (error){
             console.log("Error: ", error);
         }
