@@ -74,7 +74,8 @@ async function archiveExe() {
     console.log(contenido);
     console.log("----------------------------------");
 
-    await miArchivo.borrar();
+    //await miArchivo.borrar();
+    await miArchivo.guardar(producto3);
     
     contenido = await miArchivo.leer();
     console.log(contenido);

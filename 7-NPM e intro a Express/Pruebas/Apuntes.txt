@@ -1,0 +1,25 @@
+init > install librerias > import o require
+
+Resumen: el ^ antes del número de versión en 'dependencies' indica qué puede actualizar los minors automáticamente, si quisieramos restringir ese comportamiento para que actualize sólo los patches deberíamos usar el carácter ~
+*actualice
+
+Pasos para incorporar una nueva libreria a NPM:
+
+-Registrarse en https://www.npmjs.com/
+-Crear un proyecto NodeJS con NPM
+-(Opcionalmente) subir el codigo a un repositorio GIT.
+-Ejecutar en la consola el comando: npm login
+-Autenticarse con las credenciales
+-Escribir el comando: npm publish
+
+IMPORTANTE: en cada actualizacion, aumentar la version en el package.json
+-Verificar que la propiedad "main" en el package.json haga referencia al index.js principal
+-probar su libreria
+-Escribir en un proyecto NodeJS: npm install mi-libreria
+-Utilizarla con: require('mi-libreria')
+-Si todo se realizó correctamente, tendran disponible la funcionalidad desarrollada como libreria
+
+
+https://expressjs.com/en/guide/routing.html
+
+https://www.npmjs.com/package/morgan
