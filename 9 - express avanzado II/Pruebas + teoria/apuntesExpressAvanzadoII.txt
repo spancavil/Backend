@@ -1,0 +1,23 @@
+Router => ExpressJS
+
+Se comunica con el controller y este con la DB (MONGODB)
+
+El router es básicamente para separar el handling cuando la app va creciendo y además le puede poner un prefijo a todos los endpoints
+
+https://www.it-swarm-es.com/es/javascript/que-son-express.json-y-express.urlencoded/1045862988/
+
+express.static(public)
+Para servir archivos estáticos. También se le puede agregar un prefijo.
+
+__dirname ... seria el path absoluto hasta el recurso.
+
+
+MIDDLEWARE
+
+Es como un procesador del Request antes de enviar el response. Son como capas que van interceptando los request sucesivos. Hay varios tipos
+
+Middleware a nivel de app => app.use se usaría siempre
+
+Middleware a nivel de ruta => se ejecuta cada vez que se accede a una ruta.
+
+Middleware a nivel de router => agrego una función que se ejecuta cada vez que se levanta la ruta de ese router.
