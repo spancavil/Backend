@@ -52,6 +52,7 @@ app.get('/', (req,res)=>{
     res.render('vistaFormulario')
 })
 
+
 const server = app.listen(PORT, () => {
     console.log(`servidor escuchando en http://localhost:${PORT}`);
 });
