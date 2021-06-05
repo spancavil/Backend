@@ -21,7 +21,7 @@ routerProductos.get('/productos/listar/:id', (req,res)=>{
 routerProductos.post('/productos/guardar', (req, res)=>{
     let productoAgregar = req.body;
     let respuesta = producto.agregar(productoAgregar);
-    res.json(respuesta);
+    res.redirect('/');
 })
 
 routerProductos.delete('/productos/borrar/:id', (req, res) => {

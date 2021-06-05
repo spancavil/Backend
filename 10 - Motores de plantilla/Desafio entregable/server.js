@@ -36,12 +36,20 @@ app.use(express.static('public'));
 //Usamos las routes definidas por router
 app.use('/api', routerProductos);
 
+
+/*
+VISTAS
+*/
 app.get('/productos/vista', (req,res)=>{
     console.log(producto.productos);
     res.render('vista', {
         hayProductos: producto.productos.length !== 0,
         productos: producto.productos
     })
+})
+
+app.get('/', (req,res)=>{
+    res.render('vistaFormulario')
 })
 
 const server = app.listen(PORT, () => {
