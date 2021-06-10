@@ -1,0 +1,37 @@
+extends layout.pug
+
+block productos
+    style.
+        .table td, .table th {
+        vertical-align: middle;
+        }
+        h1 {
+        color: blue;
+        }
+        hr {
+        background-color: #ddd;
+        }
+        .jumbotron {
+        min-height: 100vh;
+        }
+    .jumbotron
+        h1 Vista de Productos
+        br
+        if hayProducto
+            .table-responsive
+                table.table.table-dark
+                    tr
+                    th Nombre
+                    th Precio
+                    th Foto
+                        each producto in productos
+                            tr
+                                td #{producto.title}
+                                td #{producto.price}
+                                td
+                                    img(width='50' src='#{producto.thumbnail}' alt='not found')
+        else
+            h3.alert.alert-warning No se encontraron productos
+
+
+

@@ -1,0 +1,7 @@
+Escojo EJS como motor de plantilla para mi proyecto.
+
+La razón es que si bien podría parecer más sencilla hacer la escritura con syntax de pug, la lógica JavaScript tiene una sintaxis totalmente diferente a la convencional, lo cual dificulta el proceso de adaptación. Me costó muchísimo llamar a las propiedades de un objeto con Pug, además es muy distinto a la hora de iterar.
+
+Cabe agregar también que al final me adapté mejor a la syntax de EJS, siento que es más JavaScript. 
+
+Por último siento que es más conocido y utilizado dicho motor de plantilla.
