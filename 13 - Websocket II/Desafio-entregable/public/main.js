@@ -1,4 +1,5 @@
-let socket = io.connect();
+// inicializamos la conexion
+const socket = io.connect();
 
 //Se renderiza la tabla utilizando una template de Handlebars
 let renderTabla = Handlebars.compile(`<style>
@@ -65,14 +66,16 @@ document.querySelector('form').addEventListener('submit', (e)=>{
 })
 
 socket.on('messages', (data)=> {
+    console.log(data);
     render(data);
 })
 
 function render(data) {
     var html = data.map((elem, index) => {
         return (`<div>
-            <strong>${elem.author}</strong>
-            <em>${elem.text}</em>
+            <strong class='fw-bold text-primary' >${elem.author}</strong>
+            <span class='text-warning'>[${elem.date}]</span>
+            <em class= 'fst-italic text-success'>${elem.text}</em>
             </div>
         `);
     }).join(" ");
@@ -83,15 +86,16 @@ function render(data) {
 
 document.querySelector('#formulario').addEventListener('submit', (e)=>{
     e.preventDefault();
+    fecha = (new Date()).toLocaleString();
     // crea un mensaje y lo emite para ser enviado al servidor
     var mensaje = {
         author: document.getElementById('username').value,
-        text: document.getElementById('texto').value
+        text: document.getElementById('texto').value,
+        date: fecha
     };
-
+    console.log(mensaje);
     socket.emit('new-message', mensaje);
     document.getElementById('texto').value = '';
     document.getElementById('texto').focus();
-
     return false;
 })
