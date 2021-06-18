@@ -1,0 +1,1 @@
+declare module 'morgan'; //Declaro los modulos externos que se importan

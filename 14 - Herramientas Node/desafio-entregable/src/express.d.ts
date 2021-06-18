@@ -1,0 +1,1 @@
+declare module 'express'; //Declaro los modulos externos que se importan

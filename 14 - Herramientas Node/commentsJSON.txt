@@ -1,0 +1,7 @@
+Algunos comentarios de la configuracion del package.JSON:
+
+1) observar que utilizo commonJS, ya que en ES5 se utiliza el require y no el import.
+Pero esto solo se utilizara en los archivos que se encuentren en ./dist
+
+2) Se declara un tsconfig.json donde están todos los parámetros que se tienen en cuenta al ejecutar tsc.
+Por ese motivo sólo se coloca "tsc" en el script ya que los parámetros ya están incluidos en el tsconfig.json.
