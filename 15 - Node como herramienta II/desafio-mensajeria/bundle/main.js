@@ -1,0 +1,1 @@
+setTimeout((()=>{console.log("Mensaje luego de 1 seg")}),1e3),setTimeout((()=>{console.log("Mensaje luego de 2 seg")}),2e3),setTimeout((()=>{console.log("Mensaje luego de 3 seg")}),3e3);

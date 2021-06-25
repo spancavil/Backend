@@ -1,0 +1,7 @@
+SQL playground
+
+https://devhints.io/mysql
+
+https://www.db-fiddle.com/
+http://sqlfiddle.com/
+https://sql-playground.com/
