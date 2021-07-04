@@ -1,0 +1,5 @@
+Iniciar el administrador
+
+cd /opt/lampp
+
+sudo ./manager-linux.run (or manager-linux-x64.run)

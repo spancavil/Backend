@@ -1,0 +1,7 @@
+knex
+
+devhints.io/knex
+
+iniciar XAMPP
+
+sudo /opt/lampp/lampp start
