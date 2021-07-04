@@ -1,0 +1,46 @@
+//1)
+
+use prueba
+
+//2) No se pueden crear tablas sino colecciones
+
+db.createCollection("items")
+
+//3) Insertar los datos
+
+db.items.insertMany(
+[
+    {
+        id: 1,
+        nombre: "Fideos",
+        categoria: "Harina",
+        stock: 20,
+    },
+    {
+        id: 2,
+        nombre: "Leche",
+        categoria: "Lacteos",
+        stock: 30
+    },
+    {
+        id: 3,
+        nombre: "Crema",
+        categoria: "Lacteos",
+        stock: 15
+    }
+]
+)
+
+//4) Listar todos
+
+db.items.find();
+
+//5 Mostrar las dbs, mostrar las colecciones de la db, y los documentos dentro
+
+show dbs
+
+use prueba
+
+show collections
+
+db.items.find()
