@@ -1,0 +1,5 @@
+https://steveridout.github.io/mongo-object-time/
+
+https://kb.objectrocket.com/mongo-db/creating-stored-procedures-in-mongodb-with-stored-javascript-341 
+
+ObjectId("507c7f79bcf86cd7994f6c0e").getTimestamp()

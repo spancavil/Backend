@@ -1,0 +1,87 @@
+1) Crear una db llamada ecommerce y poner dos coll: mensajes y productos
+
+use ecommerce
+db.createCollection("mensajes")
+db.createCollection("productos")
+
+//Vemos que se hayan creado correctamente las colecciones
+show collections
+
+
+2) Insertamos 10 documentos a cada collection siguiendo las keys del desafio anterior.
+
+db.mensajes.insert(
+    [
+        {author: "Autor1", text: "Hola!", date: ISODate()},
+        {author: "Autor2", text: "Holaaa!", date: ISODate()},
+        {author: "Autor3", text: "Holaaaa!", date: ISODate()},
+        {author: "Autor4", text: "Holaa!", date: ISODate()},
+        {author: "Autor5", text: "Holaaaa!", date: ISODate()},
+        {author: "Autor6", text: "Hola!", date: ISODate()},
+        {author: "Autor7", text: "Holaa!", date: ISODate()},
+        {author: "Autor8", text: "Holaa!", date: ISODate()},
+        {author: "Autor9", text: "Holaa!", date: ISODate()},
+        {author: "Autor10", text: "Holaa!", date: ISODate()}
+    ])
+
+db.productos.insert([
+    {id: 1, title: "Un lindo producto", price: 1400, thumbnail:"una/url/demasiadofake"},
+    {id: 2, title: "Un lindo producto", price: 2000, thumbnail:"una/url/demasiadofake"}
+    {id: 3, title: "Un lindo producto", price: 5000, thumbnail:"una/url/demasiadofake"}
+    {id: 4, title: "Un lindo producto", price: 120, thumbnail:"una/url/demasiadofake"}
+    {id: 5, title: "Un lindo producto", price: 367, thumbnail:"una/url/demasiadofake"}
+    {id: 6, title: "Un lindo producto", price: 4999, thumbnail:"una/url/demasiadofake"}
+    {id: 7, title: "Un lindo producto", price: 4877, thumbnail:"una/url/demasiadofake"}
+    {id: 8, title: "Un lindo producto", price: 3221, thumbnail:"una/url/demasiadofake"}
+    {id: 9, title: "Un lindo producto", price: 2410, thumbnail:"una/url/demasiadofake"}
+    {id: 10, title: "Un lindo producto", price: 1000, thumbnail:"una/url/demasiadofake"}
+])
+
+3)Listar los documentos de cada collection
+
+db.mensajes.find().pretty()
+db.productos.find().pretty()
+
+4)Contar la cantidad total de documentos de cada coll:
+
+db.mensajes.count();
+db.productos.count();
+
+5) Realizar un CRUD
+
+a) Agregar un producto más a la coleccion de productos:
+
+db.productos.insertOne(
+    {id: 11, title: "Un lindo producto agregado", price: 399, thumbnail:"una/url/demasiadofake"})
+
+b) Consultas:
+
+db.productos.find({$ls: {price: 1000}})
+db.productos.find({$and: [{$ls: {price: 3000}, {$gt: {price: 1000}}}]})
+db.productos.find({$gt: {price: 3000}})
+db.productos.find({}).sort({price: -1}).skip(2).limit(1)
+
+c) Agregar un stock de 100 a todos los productos:
+
+db.productos.updateMany({}, $set: {stock: 100})
+
+d) Cambiar el stock a cero de los productos con precios mayores a 4000 pesos.
+
+db.productos.find({$gt: {price: 4000}}).updateMany({}, $set: {stock: 0})
+
+e) Remove elementos con precios < 1000.
+
+db.productos.remove({$lt: {price: 1000}})
+
+5) Crear un usuario 'pepe' clave: 'asd456' que sólo pueda leer la base de datos ecommerce. Verificar que pepe no pueda cambiar la información.
+
+mongod --auth
+
+use productos
+
+db.createUser(
+    {
+        "user": "pepe", 
+        "pwd": "asd456",
+        "roles": [{role: "read", db: "productos"}]
+    })
