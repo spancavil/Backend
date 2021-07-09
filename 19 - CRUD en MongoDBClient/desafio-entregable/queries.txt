@@ -56,9 +56,9 @@ db.productos.insertOne(
 
 b) Consultas:
 
-db.productos.find({$ls: {price: 1000}})
-db.productos.find({$and: [{$ls: {price: 3000}, {$gt: {price: 1000}}}]})
-db.productos.find({$gt: {price: 3000}})
+db.productos.find({price: {$ls: 1000}})
+db.productos.find({$and: [{price: {$ls: 3000}, {price: {$gt: 1000}}}]})
+db.productos.find({price: {$gt: 3000}})
 db.productos.find({}).sort({price: -1}).skip(2).limit(1)
 
 c) Agregar un stock de 100 a todos los productos:
@@ -67,11 +67,11 @@ db.productos.updateMany({}, $set: {stock: 100})
 
 d) Cambiar el stock a cero de los productos con precios mayores a 4000 pesos.
 
-db.productos.find({$gt: {price: 4000}}).updateMany({}, $set: {stock: 0})
+db.productos.find({price: {$gt: 4000}}).updateMany({}, $set: {stock: 0})
 
 e) Remove elementos con precios < 1000.
 
-db.productos.remove({$lt: {price: 1000}})
+db.productos.remove({price: {$lt: 1000}})
 
 5) Crear un usuario 'pepe' clave: 'asd456' que sólo pueda leer la base de datos ecommerce. Verificar que pepe no pueda cambiar la información.
 
