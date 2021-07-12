@@ -24,18 +24,7 @@ db.mensajes.insert(
         {author: "Autor10", text: "Holaa!", date: ISODate()}
     ])
 
-db.productos.insert([
-    {id: 1, title: "Un lindo producto", price: 1400, thumbnail:"una/url/demasiadofake"},
-    {id: 2, title: "Un lindo producto", price: 2000, thumbnail:"una/url/demasiadofake"}
-    {id: 3, title: "Un lindo producto", price: 5000, thumbnail:"una/url/demasiadofake"}
-    {id: 4, title: "Un lindo producto", price: 120, thumbnail:"una/url/demasiadofake"}
-    {id: 5, title: "Un lindo producto", price: 367, thumbnail:"una/url/demasiadofake"}
-    {id: 6, title: "Un lindo producto", price: 4999, thumbnail:"una/url/demasiadofake"}
-    {id: 7, title: "Un lindo producto", price: 4877, thumbnail:"una/url/demasiadofake"}
-    {id: 8, title: "Un lindo producto", price: 3221, thumbnail:"una/url/demasiadofake"}
-    {id: 9, title: "Un lindo producto", price: 2410, thumbnail:"una/url/demasiadofake"}
-    {id: 10, title: "Un lindo producto", price: 1000, thumbnail:"una/url/demasiadofake"}
-])
+db.productos.insert([{id: 1, title: "Un lindo producto", price: 1400, thumbnail:"una/url/demasiadofake"},{id: 2, title: "Un lindo producto", price: 2000, thumbnail:"una/url/demasiadofake"},{id: 3, title: "Un lindo producto", price: 5000, thumbnail:"una/url/demasiadofake"},{id: 4, title: "Un lindo producto", price: 120, thumbnail:"una/url/demasiadofake"},{id: 5, title: "Un lindo producto", price: 367, thumbnail:"una/url/demasiadofake"},{id: 6, title: "Un lindo producto", price: 4999, thumbnail:"una/url/demasiadofake"},{id: 7, title: "Un lindo producto", price: 4877, thumbnail:"una/url/demasiadofake"},{id: 8, title: "Un lindo producto", price: 3221, thumbnail:"una/url/demasiadofake"},{id: 9, title: "Un lindo producto", price: 2410, thumbnail:"una/url/demasiadofake"},{id: 10, title: "Un lindo producto", price: 1000, thumbnail:"una/url/demasiadofake"}])
 
 3)Listar los documentos de cada collection
 
@@ -51,15 +40,14 @@ db.productos.count();
 
 a) Agregar un producto más a la coleccion de productos:
 
-db.productos.insertOne(
-    {id: 11, title: "Un lindo producto agregado", price: 399, thumbnail:"una/url/demasiadofake"})
+db.productos.insertOne({id: 11, title: "Un lindo producto agregado", price: 399, thumbnail:"una/url/demasiadofake"})
 
 b) Consultas:
 
-db.productos.find({price: {$ls: 1000}})
-db.productos.find({$and: [{price: {$ls: 3000}, {price: {$gt: 1000}}}]})
+db.productos.find({price: {$lt: 1000}})
+db.productos.find({price: {$lt: 3000$, gt: 1000}}) //fixed
 db.productos.find({price: {$gt: 3000}})
-db.productos.find({}).sort({price: -1}).skip(2).limit(1)
+db.productos.find({},{"title":1, "_id":0}).sort({price: 1}).skip(2).limit(1) //fixed
 
 c) Agregar un stock de 100 a todos los productos:
 
@@ -67,7 +55,7 @@ db.productos.updateMany({}, $set: {stock: 100})
 
 d) Cambiar el stock a cero de los productos con precios mayores a 4000 pesos.
 
-db.productos.find({price: {$gt: 4000}}).updateMany({}, $set: {stock: 0})
+db.productos.updateMany({price: {$gt: 4000}}, {$set:{stock: 0}}) //Fixed
 
 e) Remove elementos con precios < 1000.
 
