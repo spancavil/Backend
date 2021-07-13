@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
-const url = require('../config/configMongo.JSON').MONGO_URL;
 
-const connection = mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+const connection = mongoose.connect("mongodb://localhost:27017/ecommerce", { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.connection.on('connected', () => {
-    console.log('[Mongoose] - connected in:', url);
+    console.log('[Mongoose] - connected in: /localhost:27017/ecommerce');
 });
 
 mongoose.connection.on('error', (err) => {

@@ -1,7 +1,4 @@
-const fs = require('fs');
-const mensajeDAO = require('../models/mensajesDAO');
-
-const mensajedao = new mensajeDAO;
+const mensajesMongo = require('../models/mensajesMongo');
 
 class Mensajes {
     constructor(){
@@ -9,20 +6,24 @@ class Mensajes {
 
     async leerMensajes(){
         try{
-            const mensajes = await mensajedao.traerMensajes();
+            const mensajes = await mensajesMongo.find({});
             if (mensajes){
                 return mensajes;
             }
         }
         catch (e) {
-            console.log("Entro a error!")
+            console.log("Error al leer los mensajes: ", e)
         }
     }
 
     async guardarMensajes(mensaje){
         console.log("Entro a guardar");
         console.log(mensaje);
-        await mensajedao.guardar(mensaje);
+        try {
+            return await mensajesMongo.create(mensaje);
+        } catch (error) {
+            console.log("Error al guardar los mensajes: ", e)
+        }
     }
 }
 

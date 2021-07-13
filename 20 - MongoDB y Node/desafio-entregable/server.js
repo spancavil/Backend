@@ -6,6 +6,9 @@ const morgan = require('morgan');
 const Mensajes = require('./api/Mensajes');
 const {routerProductos} = require('./routes/routerProductos');
 
+//Conexion con la db de Mongo;
+require('./databases/connMongo');
+
 const PORT = 8081;
 const mensajes = new Mensajes;
 const defaultMessages = [
