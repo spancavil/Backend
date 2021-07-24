@@ -1,0 +1,177 @@
+{
+	"entities": {
+		"mensaje": {
+			"60fc0f7c64b91f2c1ea20d8a": {
+				"$__": {
+					"strictMode": true,
+					"selected": {},
+					"getters": {},
+					"_id": "60fc0f7c64b91f2c1ea20d8a",
+					"wasPopulated": false,
+					"activePaths": {
+						"paths": {
+							"timestamp": "init",
+							"text": "init",
+							"author.avatar": "init",
+							"author.alias": "init",
+							"author.edad": "init",
+							"author.apellido": "init",
+							"author.nombre": "init",
+							"author.email": "init",
+							"_id": "init",
+							"__v": "init"
+						},
+						"states": {
+							"ignore": {},
+							"default": {},
+							"init": {
+								"_id": true,
+								"author.email": true,
+								"author.nombre": true,
+								"author.apellido": true,
+								"author.edad": true,
+								"author.alias": true,
+								"author.avatar": true,
+								"text": true,
+								"timestamp": true,
+								"__v": true
+							},
+							"modify": {},
+							"require": {}
+						},
+						"stateNames": [
+							"require",
+							"modify",
+							"init",
+							"default",
+							"ignore"
+						]
+					},
+					"pathsToScopes": {},
+					"cachedRequired": {},
+					"session": null,
+					"$setCalled": {},
+					"emitter": {
+						"_events": {},
+						"_eventsCount": 0,
+						"_maxListeners": 0
+					},
+					"$options": {
+						"skipId": true,
+						"isNew": false,
+						"willInit": true,
+						"defaults": true
+					}
+				},
+				"isNew": false,
+				"$locals": {},
+				"$op": null,
+				"_doc": {
+					"author": {
+						"email": "soancavil@gmail.com",
+						"nombre": "Sebas",
+						"apellido": "Anca",
+						"edad": "12",
+						"alias": "Spanno",
+						"avatar": "https://randomuser.me/api/portraits/thumb/men/91.jpg"
+					},
+					"_id": "60fc0f7c64b91f2c1ea20d8a",
+					"text": "Algo para completar el mensaje.",
+					"timestamp": "7/24/2021, 10:02:52 AM",
+					"__v": 0
+				},
+				"$init": true
+			},
+			"60fc319685ced935b28e4ee5": {
+				"$__": {
+					"strictMode": true,
+					"selected": {},
+					"getters": {},
+					"_id": "60fc319685ced935b28e4ee5",
+					"wasPopulated": false,
+					"activePaths": {
+						"paths": {
+							"timestamp": "init",
+							"text": "init",
+							"author.avatar": "init",
+							"author.alias": "init",
+							"author.edad": "init",
+							"author.apellido": "init",
+							"author.nombre": "init",
+							"author.email": "init",
+							"_id": "init",
+							"__v": "init"
+						},
+						"states": {
+							"ignore": {},
+							"default": {},
+							"init": {
+								"_id": true,
+								"author.email": true,
+								"author.nombre": true,
+								"author.apellido": true,
+								"author.edad": true,
+								"author.alias": true,
+								"author.avatar": true,
+								"text": true,
+								"timestamp": true,
+								"__v": true
+							},
+							"modify": {},
+							"require": {}
+						},
+						"stateNames": [
+							"require",
+							"modify",
+							"init",
+							"default",
+							"ignore"
+						]
+					},
+					"pathsToScopes": {},
+					"cachedRequired": {},
+					"session": null,
+					"$setCalled": {},
+					"emitter": {
+						"_events": {},
+						"_eventsCount": 0,
+						"_maxListeners": 0
+					},
+					"$options": {
+						"skipId": true,
+						"isNew": false,
+						"willInit": true,
+						"defaults": true
+					}
+				},
+				"isNew": false,
+				"$locals": {},
+				"$op": null,
+				"_doc": {
+					"author": {
+						"email": "soancavil@gmail.com",
+						"nombre": "Sebas",
+						"apellido": "Anca",
+						"edad": "23",
+						"alias": "Spannete",
+						"avatar": "https://randomuser.me/api/portraits/men/55.jpg\""
+					},
+					"_id": "60fc319685ced935b28e4ee5",
+					"text": "algo",
+					"timestamp": "7/24/2021, 12:28:21 PM",
+					"__v": 0
+				},
+				"$init": true
+			}
+		},
+		"mensajes": {
+			"undefined": {
+				"id": "LALALA",
+				"mensajes": [
+					"60fc0f7c64b91f2c1ea20d8a",
+					"60fc319685ced935b28e4ee5"
+				]
+			}
+		}
+	}
+}
