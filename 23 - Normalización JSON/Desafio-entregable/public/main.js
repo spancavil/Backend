@@ -1,6 +1,10 @@
 // inicializamos la conexion
 const socket = io.connect();
 
+const normalize = normalizr.normalize;
+const denormalize = normalizr.denormalize;
+const schema = normalizr.schema;
+
 //Se renderiza la tabla utilizando una template de Handlebars
 let renderTabla = Handlebars.compile(`<style>
 .table td, .table th {
@@ -67,7 +71,11 @@ document.querySelector('form').addEventListener('submit', (e)=>{
 
 socket.on('messages', (data)=> {
     console.log(data);
-    render(data);
+    console.log(denormalize);
+    const denormalizedData = denormalize(data.result, 'allmensajes', data.entities)
+    console.log(denormalizedData);
+    document.getElementById('compresion').innerHTML(`Compresión: ${denormalizedData.length/data.length*100}`)
+    render(denormalizedData);
 })
 
 function render(data) {

@@ -9,7 +9,7 @@ const schema = normalizr.schema;
 class MensajesDAO{
     async guardar(mensaje){
         try {
-
+            console.log("Entro a guardar!");
             const response = await mensajesMongo.create(mensaje);
             console.log(response);
             return;
@@ -21,23 +21,43 @@ class MensajesDAO{
     async traerMensajes(){
         try {
             const mensajesCrudo = await mensajesMongo.find({});
-            const mensajes = {
-                id: "LALALA",
-                mensajes: [...mensajesCrudo]
+            if (mensajesCrudo){
+                const mensajesNormalizados = this.normalizeMensaje(mensajesCrudo);
+                return mensajesNormalizados;
+            } else {
+                return [];
             }
-            
+        } catch (e) {
+            console.log("Error al leer los mensajes en MongoAtlas: ", e);
+        }
+    }
+
+    normalizeMensaje(mensajesCrudo){
+        const cuerpoMensajes = [];
+            for (const mensaje of mensajesCrudo) {
+                cuerpoMensajes.push({
+                    author: mensaje.author,
+                    text : mensaje.text,
+                    timestamp: mensaje.timestamp
+                })
+            }
+            const mensajes = {
+                id: "id",
+                mensajes: [...cuerpoMensajes]
+            }
+
             if (mensajes){
                 console.log(mensajes);
                 console.log("entro a traer mensajes!");
-                const schemaAuthor = new schema.Entity('author', {}, {idAttribute: 'email'})
+                const users = new schema.Entity('users', {}, {idAttribute: 'email'})
 
-                const schemaMensaje = new schema.Entity('mensaje', {
-                    author: schemaAuthor
-                })
+                const schemaMensaje = new schema.Entity('mensajes', {
+                    author: users
+                }, {idAttribute: 'timestamp'})
 
-                const schemaMensajes = new schema.Entity('mensajes', {
+                const schemaMensajes = new schema.Entity('allmensajes', {
                     mensajes: [schemaMensaje]
-                }, {idAttribute: "LALALA"});
+                }, {idAttribute: "id"});
 
                 const normalizedData = normalize(mensajes, schemaMensajes);
                 const normalizedDataString = JSON.stringify(normalizedData, null, '\t')
@@ -45,16 +65,11 @@ class MensajesDAO{
 
                 const compresion = (normalizedDataString.length / originalDataString.length * 100);
                 console.log(compresion);
-                fs.writeFileSync('./objetoNormalizado.json', JSON.stringify(normalizedData, null, '\t'))
 
-                return mensajes;
+                //fs.writeFileSync('./objetoNormalizado.json', JSON.stringify(normalizedData)
+                //fs.writeFileSync('./objetoDESNormalizado.json', JSON.stringify(normalizedData)
+                return normalizedData;
             }
-            else {
-                return [];
-            }
-        } catch (e) {
-            console.log("Error al leer los mensajes en MongoAtlas: ", e);
-        }
     }
 }
 
