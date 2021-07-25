@@ -71,11 +71,21 @@ document.querySelector('form').addEventListener('submit', (e)=>{
 
 socket.on('messages', (data)=> {
     console.log(data);
-    console.log(denormalize);
-    const denormalizedData = denormalize(data.result, 'allmensajes', data.entities)
+    //Armado del esquema (mismo que había en el back)
+    const users = new schema.Entity('users', {}, {idAttribute: 'email'})
+
+    const schemaMensaje = new schema.Entity('mensajes', {
+        author: users
+    }, {idAttribute: 'timestamp'})
+
+    const schemaMensajes = new schema.Entity('allmensajes', {
+        mensajes: [schemaMensaje]
+    }, {idAttribute: "id"});
+    //Denormalización de la data
+    const denormalizedData = denormalize(data.result, schemaMensajes, data.entities)
     console.log(denormalizedData);
-    document.getElementById('compresion').innerHTML(`Compresión: ${denormalizedData.length/data.length*100}`)
-    render(denormalizedData);
+    document.getElementById('compresion').innerHTML = `Compresión: ${Math.round((JSON.stringify(data).length/JSON.stringify(denormalizedData).length) * 100)} %`;
+    render(denormalizedData.mensajes);
 })
 
 function render(data) {

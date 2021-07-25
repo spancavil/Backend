@@ -47,8 +47,6 @@ class MensajesDAO{
             }
 
             if (mensajes){
-                console.log(mensajes);
-                console.log("entro a traer mensajes!");
                 const users = new schema.Entity('users', {}, {idAttribute: 'email'})
 
                 const schemaMensaje = new schema.Entity('mensajes', {
@@ -63,8 +61,8 @@ class MensajesDAO{
                 const normalizedDataString = JSON.stringify(normalizedData, null, '\t')
                 const originalDataString = JSON.stringify(mensajes, null, '\t')
 
-                const compresion = (normalizedDataString.length / originalDataString.length * 100);
-                console.log(compresion);
+                //const compresion = (normalizedDataString.length / originalDataString.length * 100);
+                //console.log(compresion);
 
                 //fs.writeFileSync('./objetoNormalizado.json', JSON.stringify(normalizedData)
                 //fs.writeFileSync('./objetoDESNormalizado.json', JSON.stringify(normalizedData)
