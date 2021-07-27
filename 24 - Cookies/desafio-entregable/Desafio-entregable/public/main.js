@@ -6,6 +6,10 @@ const denormalize = normalizr.denormalize;
 const schema = normalizr.schema;
 
 //Se renderiza la tabla utilizando una template de Handlebars
+fetch('/loginInfo').then(res=>res.json())
+.then(data=>{
+    document.getElementById("usernameLogin").innerHTML= `Bienvenido ${data.body}`
+})
 let renderTabla = Handlebars.compile(`<style>
 .table td, .table th {
     vertical-align: middle;

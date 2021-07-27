@@ -6,5 +6,12 @@ document.querySelector("#loginForm").addEventListener('submit', (e)=>{
         headers: {
             'Content-Type': 'application/json'
         }
+    }).then(res=>res.json())
+    .then(data=>{
+        if (data.status === "ok"){
+            alert("Login correcto, ya puede proceder a /content");
+        } else {
+            alert("Login fallido, username inválido");
+        }
     });
 })

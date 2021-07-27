@@ -25,26 +25,32 @@ app.use(express.static(__dirname + "/public"));
 app.use(session({
     secret: "secreto",
     resave: true,
-    saveUninitializated: true
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 10000
+    }
 }))
 
 app.use('/api', routerProductos);
 
-//Se envía el archivo index de public
+//Se envía el archivo login. Es lo primero que aparece.
 app.get('/', (req,res)=>{
     res.sendFile(__dirname + '/public/login.html');
 })
+
+//Endpoint para chequear el login.
 app.get('/login', (req,res)=>{
     if(req.query.username === "Jorge"){
         console.log("login correcto");
         req.session.username = "Jorge";
         req.session.admin = true;
-        res.redirect('/content');
+        res.send({status:"ok"});
     }else{
-        res.send({message: "Invalid username"});
+        res.send({status: "Invalid username"});
     }
 })
 
+//logout se accede a través del botón de logout del content.html
 app.get('/logout', (req,res)=>{
     req.session.destroy(err => {
         if (!err) {
@@ -54,10 +60,17 @@ app.get('/logout', (req,res)=>{
     })
 })
 
+//Middleware para chequear que esté loggeado como el username correcto. En caso de no, se envía un 401.
+//Además por cada nueva petición se regenera el tiempo de vida de la session.
 const auth = (req, res, next) =>{
-    console.log(req.session);
-    if (req.session.username === "Jorge" && req.session.admin)
-        return next();
+    if (req.session.username === "Jorge" && req.session.admin){
+        req.session.regenerate(()=>{
+            req.session.username = "Jorge";
+            req.session.admin = true;
+            console.log(req.session);
+            return next();
+        })
+    }
     else
         return res.sendStatus(401);
 }
