@@ -170,9 +170,8 @@ app.post('/login',
   passport.authenticate('login', {failureRedirect: '/failsignin', successRedirect: '/datos'})
 );
 
-app.get('/datos', (req, res) =>{
-  console.log(req.session.user)
-  res.render('datos', {username: req.session.user});
+app.get('/datos', checkAuth, (req, res) =>{
+  res.render('datos', {username: req.session.passport.user});
 })
 
 //logout se accede a través del botón de logout del content.html
@@ -191,22 +190,19 @@ app.get('/failsignin', (req,res)=>{
 
 //Middleware para chequear que esté loggeado como el username correcto. En caso de no, se envía un 401.
 //Además por cada nueva petición se regenera el tiempo de vida de la session.
-/* function checkAuth (req, res, next){
-  if (req.isAuthenticated()){
-      console.log("ok")
-      req.session.username = passport.session.username;
+function checkAuth (req, res, next){
+  if (req.session.passport){
       next();
   } else {
-      console.log("todo mal")
       res.redirect('/');
   }
-} */
+}
 
 app.get('/info', (req, res) => {
   console.log('session: ', req.session)
   console.log('sessionID: ', req.sessionID)
   console.log('cookies: ', req.cookies)
-  console.log('user: ', req.user)
+  console.log('user: ', req.session.passport.user)
 
   res.send('Send info ok!');
 })
