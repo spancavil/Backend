@@ -109,11 +109,11 @@ var createHash = function (password) {
 }
 
 passport.serializeUser(function (user, done) {
-  done(null, user.username);
+  done(null, user._id);
 });
 
 passport.deserializeUser(function (id, done) {
-  User.findOne({username: id}, () => {
+  User.findById(id, (err, user) => {
     done(err, user);
   });
 });
@@ -122,14 +122,11 @@ const PORT = 8081;
 
 //Necesitamos agregar estas dos líneas para que me lea los JSON que vienen desde POSTMAN. Caso contrario no los puede leer.
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 //Morgan nos avisará por cada petición sobre nuestro server
 app.use(morgan('dev'));
 
 app.use(express.static(__dirname + "/public"));
-
-app.use(passport.initialize());
 
 app.use(session({
   store: MongoStore.create({
@@ -143,6 +140,12 @@ app.use(session({
   saveUninitialized: false,
   ttl: 60 * 60
 }))
+
+app.use(express.urlencoded({ extended: true }));
+
+//Inicializamos el middleware luego de inicializar express-session
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Se envía el archivo login. Es lo primero que aparece.
 app.get('/', (req, res) => {
@@ -171,17 +174,13 @@ app.post('/login',
 );
 
 app.get('/datos', checkAuth, (req, res) =>{
-  res.render('datos', {username: req.session.passport.user});
+  res.render('datos', {username: req.user.username});
 })
 
 //logout se accede a través del botón de logout del content.html
 app.get('/logout', (req, res) => {
-  req.session.destroy(err => {
-    if (!err) {
-      res.redirect('/')
-    }
-    else res.send({ status: 'Logout ERROR', body: err })
-  })
+  req.logout();
+  res.redirect('/');
 })
 
 app.get('/failsignin', (req,res)=>{
@@ -191,7 +190,7 @@ app.get('/failsignin', (req,res)=>{
 //Middleware para chequear que esté loggeado como el username correcto. En caso de no, se envía un 401.
 //Además por cada nueva petición se regenera el tiempo de vida de la session.
 function checkAuth (req, res, next){
-  if (req.session.passport){
+  if (req.isAuthenticated()){
       next();
   } else {
       res.redirect('/');
@@ -202,7 +201,7 @@ app.get('/info', (req, res) => {
   console.log('session: ', req.session)
   console.log('sessionID: ', req.sessionID)
   console.log('cookies: ', req.cookies)
-  console.log('user: ', req.session.passport.user)
+  console.log('user: ', req.user)
 
   res.send('Send info ok!');
 })
