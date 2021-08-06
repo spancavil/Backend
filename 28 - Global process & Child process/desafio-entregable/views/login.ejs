@@ -1,0 +1,28 @@
+<%- include('./layout')-%>
+    <style>
+        body{
+            display: flex;
+            justify-content: space-around;
+            margin: 10px;
+            padding: 5px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        button {
+            border-radius: 4px;
+            color: rgb(82, 82, 255)
+        }
+
+    </style>
+    <button class="btn btn-success my-3" onclick="goLogin()">Iniciar sesión con facebook</button>
+    <button class="btn btn-success my-3" onclick="goFork()">Proceso de cómputo no bloqueante</button>
+
+    <script>
+        const goLogin = () => {
+            location.href = '/login'
+        }
+        const goFork = () => {
+            location.href = '/randoms'
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<%- include('./layout')-%>
+    <style>
+        body {
+            display: flex;
+            flex-flow: wrap;
+            align-items: center;
+            padding: 5px;
+            justify-content: center;
+            margin: 10px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        button {
+            border-radius: 4px;
+            color: rgb(82, 82, 255)
+        }
+        input {
+            border-radius: 10px;
+        }
+    </style>
+    <div class='d-flex justify-content-around align-items-center px-5'>
+        <h4 class="text-center">Ingrese cantidad de números para computar (modo no bloq):</h4>
+        <input class="mx-3" id="cantidad" placeholder="1 - infinito(?)"></input> 
+        <button class="btn btn-success mx-3" onclick="goCompute()">Computar!</button>
+        <button class="btn btn-success my-3" onclick="goBack()">Back </button>
+    </div>
+    <h5 id="datosObtenidos"></h5>
+
+    <script>
+        const goCompute = () => {
+            let objetoAEnviar = {cant : parseInt(document.getElementById("cantidad").value)}
+            console.log(objetoAEnviar);
+            fetch('/compute', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(objetoAEnviar)
+            }
+            ).then(res => {
+                console.log(res);
+                return res.json()})
+            .then(data=> {
+                console.log(data);
+                document.getElementById("datosObtenidos").innerHTML = `${JSON.stringify(data, null, '\t')} `
+                })
+            }
+        
+        const goBack = () => {
+            location.href = "/";
+        }
+    </script>
+    </body>
+
+    </html>
