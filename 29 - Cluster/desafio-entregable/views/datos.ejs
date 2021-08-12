@@ -1,0 +1,174 @@
+<%- include('./layout')-%>
+    <style>
+        body {
+            margin: 10px;
+            padding: 5px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        h2 {
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        img {
+            border-radius: 25px;
+            position: relative;
+            left: 20px;
+        }
+
+        .table td,
+        .table th {
+            vertical-align: middle;
+        }
+
+        h1 {
+            color: blue;
+        }
+
+        hr {
+            background-color: #ddd;
+        }
+    </style>
+    <div class="d-flex justify-content-center align-items-center m-5 px-5">
+        <h2>Bievenid@ <%=username%>
+        </h2>
+        <img src=<%=photo%> />
+        <button class="btn btn-success my-3"
+        style="position: absolute; right: 170px;" 
+        onclick="location.href='/logout'">
+        Log out
+    </button>
+    </div>
+
+    <div class="jumbotron">
+        <h2 class="text-center">DATOS ULTRASENSIBLES</h2>
+        <h1 class="text-center">Formulario de carga de productos</h1>
+        <form class="p-2" action="" method="">
+            <div class="form-group p-2">
+                <label class="text-light" for="exampleInputEmail1">Nombre</label>
+                <input type="text" class="form-control" name="title" id="name" placeholder="Ingresar nombre">
+            </div>
+            <div class="form-group p-2">
+                <label class="text-light" for="exampleInputEmail1">Precio</label>
+                <input type="text" class="form-control" name="price" id="price" placeholder="Ingresar precio">
+            </div>
+            <div class="form-group p-2">
+                <label class="text-light" for="exampleInputEmail1">Foto</label>
+                <input type="text" class="form-control" name="thumbnail" id="thumb" placeholder="Ingresar thumbnail">
+            </div>
+            <button class="btn btn-primary text-center m-2">Enviar</button>
+        </form>
+        <h1>Vista de Productos</h1>
+        <br>
+
+        <%if (hayProductos === true) {%>
+            <div class="table-responsive">
+                <table class="table table-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Foto</th>
+                    </tr>
+                    <% productos.forEach( producto=> { %>
+                        <tr>
+                            <td>
+                                <%=producto.title%>
+                            </td>
+                            <td>
+                                <%=producto.price%>
+                            </td>
+                            <td><img width="50" src=<%=producto.thumbnail%> alt="not found"></td>
+                        </tr>
+                        <% }) %>
+                </table>
+            </div>
+            <%}else {%>
+                <h3 class="alert alert-warning">No se encontraron productos</h3>
+                <%}%>
+    </div>
+
+    <div class="container mt-3">
+        <h1 class="p-3">Deje aquí sus mensajes</h1>
+        <div class="bg-light p-3 m-1" id="messages"></div>
+        <form class="form-inline" autocomplete="off" id="formulario">
+            <input type="text" id="username" class="form-control my-2 mr-2" placeholder="Tu Nombre">
+            <input type="text" id="texto" class="form-control my-2 mr-2" placeholder="Cuéntanos algo...">
+            <input class="btn btn-primary my-2" type="submit" value="Enviar!">
+        </form>
+
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // inicializamos la conexion
+        const socket = io.connect();
+
+        //Recibo el evento content desde el server con los datos de los productos.
+        socket.on('content', () => {
+            location.reload();
+        });
+
+        //Por cada submit se hace un evento
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault(); //Prevenimos la recarga
+
+            //Captura de datos
+            const nombre = document.querySelector("#name").value;
+            const price = document.querySelector("#price").value;
+            const thumb = document.querySelector("#thumb").value;
+            objeto = { title: nombre, price: price, thumbnail: thumb };
+
+            //Configuración de mi JSON para enviarlo a la ruta correspondiente utilizando fetch
+            //Hay que configurar el content-type del tipo json, sino no lo toma el server.
+            fetch('/api/productos/guardar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(objeto)
+            })
+                .then(() => socket.emit("contentSent")) //Una vez hecho el post lo emitimos al server
+                .catch((e) => console.log("Ooops, error: ", e)); //Catch errors
+        })
+
+        socket.on('messages', (data) => {
+            console.log(data);
+            render(data);
+        })
+
+        function render(data) {
+            console.log(data);
+            if (data !== {}) {
+                var html = data.map((elem, index) => {
+                    return (`<div>
+            <strong class='fw-bold text-primary' >${elem.author}</strong>
+            <span class='text-warning'>[${elem.date}]</span>
+            <em class= 'fst-italic text-success'>${elem.text}</em>
+            </div>
+        `);
+                }).join(" ");
+                // inyecta el html en el elemento con id messages
+                document.getElementById("messages").innerHTML = html;
+            }
+
+        }
+
+        document.querySelector('#formulario').addEventListener('submit', (e) => {
+            e.preventDefault();
+            fecha = (new Date()).toLocaleString();
+            // crea un mensaje y lo emite para ser enviado al servidor
+            var mensaje = {
+                author: document.getElementById('username').value,
+                text: document.getElementById('texto').value,
+                date: fecha
+            };
+            console.log(mensaje);
+            socket.emit('new-message', mensaje);
+            document.getElementById('texto').value = '';
+            document.getElementById('texto').focus();
+            return false;
+        })
+    </script>
+    </body>
+
+    </html>
