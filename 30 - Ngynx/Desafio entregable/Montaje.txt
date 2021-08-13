@@ -1,0 +1,12 @@
+Mismo desafío que antes (idéntico código)
+
+Ejecutar nginx con la configuración del archivo nginx.conf aquí adjuntado.
+
+luego ejecutar
+
+npm run fork
+npm run cluster
+
+Para ejecutar dos servers en pm2, según la configuración del package.json aquí adjuntada.
+
+Al entrar en las rutas localhost:8080/info y localhost:8080/randoms se redirige a los servers de pm2 en una relacion de carga 4 a 1. 

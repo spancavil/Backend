@@ -1,0 +1,39 @@
+nginx.config  (se encuentra en /etc/nginx)
+------------
+
+Es un reverse proxy. Una vez levantado en el puerto que queramos, puede redirigir las peticios a otros servers.
+
+Modificar dentro del http:
+
+    upstream node_app { server 127.0.0.1:8081; 
+                        server 127.0.0.1:8082 weight=3; } 
+    
+    server {
+    	listen 8080 default_server;
+        listen [::]:8080 ipv6only=on default_server;
+        server_name  _;
+        root "/home/sebita/Data/Cursos/Coderhouse/Backend/30 - Ngynx/serverNginx/";
+        
+        location /datos/ 
+            { proxy_pass http://node_app; }
+	}
+
+NOTA: Levantamos 2 servidores node con pm2 en los puertos 8081 y 8082.
+Luego vamos localhost:8080/datos Qué sería donde está escuchando nginx, y al acceder a /datos
+nos redirige a los servers de node que ya tenemos levantados en una relacion 3 (8082) a 1 (8081)
+De esta forma nginx estaría actuando como un proxy inverso (o reverse) balanceando la carga entre esos
+dos servers.
+Podemos poner más locations si queremos, que apuntaran nuevamente a nuestra app de node corriendo con pm2. 
+
+Levantamos los 2 servers con pm2
+pm2 start server.js --name="server1" --watch -- 8081
+pm2 start server.js --name="server2" --watch -- 8082
+
+Aclaracion importante: debemos detener apache porque corre en el mismo puerto.
+
+sudo service apache2 stop
+
+También por cada cambio en el config hay que reiniciar nginx:
+sudo service nginx restart
+
+Otro comandos importantes de nginx: stop / start / status
