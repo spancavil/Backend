@@ -3,9 +3,11 @@ const app = express();
 const server = require('http').Server(app);
 const morgan = require('morgan');
 const dotenv = require('dotenv');
-const random = require('./libs/funcionRandom');
-const winston = require('winston');
+const random = require('./libs/funcionRandom')
 
+//Desafio 31 - compression && loggers
+const compression = require('compression')
+const {loggerConsole, loggerWarn, loggerError} = require('./loggers/winston');
 
 const io = new require('socket.io')(server)
 
@@ -21,10 +23,8 @@ const numCPUs = require('os').cpus().length;
 //Le pasamos el puerto por consola
 const PORT = process.argv[2];
 
-
-// Ingresamos credenciales por consola o usamos nuestras credenciales por defecto del archivo .env
-const FACEBOOK_CLIENT_ID = process.argv[3] || process.env.FACEBOOK_CLIENT_ID;
-const FACEBOOK_CLIENT_SECRET = process.argv[4] || process.env.FACEBOOK_CLIENT_SECRET;
+//Importamos el passport
+const passport = require('./passport/passportFacebook')
 
 //Traemos la conn con Atlas
 require('./databases/mongoAtlasConn');
@@ -37,35 +37,13 @@ app.set('view engine', 'ejs');
 const session = require('express-session') //Habilitamos las sessions en express
 const MongoStore = require('connect-mongo') //Conexión de sesiones con Mongo
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true }
-const passport = require('passport'); //Definimos en passport nuestras estrategias de login y signup
 const bCrypt = require('bcrypt');
-const FacebookStrategy = require('passport-facebook').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 
 //Traemos el model que implementamos con Mongoose
 const User = require('./models/users');
 const { routerProductos } = require('./routes/routerProductos');
 
-// configuramos passport para usar facebook
-passport.use(new FacebookStrategy({
-  clientID: FACEBOOK_CLIENT_ID,
-  clientSecret: FACEBOOK_CLIENT_SECRET,
-  callbackURL: '/login/callback',
-  profileFields: ['id', 'displayName', 'photos', 'emails'],
-  scope: ['email']
-}, function (accessToken, refreshToken, profile, done) {
-  console.log(profile);
-  let userProfile = profile;
-  return done(null, userProfile);
-}));
-
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function (user, done) {
-  done(null, user);
-});
 
 //Necesitamos agregar estas dos líneas para que me lea los JSON que vienen desde POSTMAN. Caso contrario no los puede leer.
 app.use(express.json());
@@ -94,6 +72,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(compression())
 app.use('/api', routerProductos)
 
 //Se envía el archivo login. Es lo primero que aparece.
@@ -113,14 +92,13 @@ app.get('/login/callback', passport.authenticate('facebook',
   }
 ));
 
+//Renderización de datos y mensajes
 app.get('/datos', checkAuth, async (req, res) => {
-  console.log(req.user);
 
+  loggerWarn.log('warn', `El usuario ${req.user.displayName} con id: ${req.user.id} ingresó a /datos`)
   let productosDB = await productos.listar();
-  console.log(productosDB);
   let hayProductos = false;
   productosDB.error ? null : hayProductos = true;
-  console.log(hayProductos);
 
   res.render('datos', { 
     username: req.user.displayName,
@@ -146,6 +124,7 @@ function checkAuth(req, res, next) {
   if (req.isAuthenticated()) {
     next();
   } else {
+    loggerWarn.log("warn", "Se intento ingresar a /datos sin autenticación")
     res.redirect('/');
   }
 }
@@ -158,6 +137,10 @@ app.get('/randoms', (req, res) => {
 //Se computa la cantidad de números random
 app.post('/compute', (req, res) => {
   let { cant: cantidadNumeros } = req.body;
+
+  //Agregamos un warn en caso que la cantidad supere cierto valor
+  cantidadNumeros > 1e6 && loggerWarn.log('warn', "La cantidad de numeros es mayor a 1e6. El server podría quedar sobrecargado.");
+
   let valores = random(cantidadNumeros); //Lo hacemos sin fork.
   res.send(JSON.stringify(valores));
 });
@@ -189,8 +172,10 @@ app.get('/info', (req, res) => {
 
 })
 
+//Esto sólo sera accesible una vez loggeado el user
+
 io.on('connection', async socket => {
-  console.log('Nuevo cliente conectado!');
+  loggerConsole.log('debug', 'Nuevo cliente conectado!');
 
   /* Info Productos (ws) */
   /* Envio los mensajes al cliente que se conectó */
@@ -221,5 +206,5 @@ io.on('connection', async socket => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Servidor escuchando en http://localhost:${PORT}`);
+  loggerConsole.log('debug', `Servidor escuchando en http://localhost:${PORT}`);
 });
