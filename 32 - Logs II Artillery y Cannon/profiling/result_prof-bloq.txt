@@ -1,0 +1,81 @@
+Statistical profiling result from bloq-v8.log, (52400 ticks, 0 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+  52159   99.5%          /usr/bin/node
+     26    0.0%          /usr/lib/x86_64-linux-gnu/libc-2.31.so
+      4    0.0%          [vdso]
+      4    0.0%          /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+      6    0.0%    2.9%  LazyCompile: *normalizeString node:path:66:25
+      1    0.0%    0.5%  RegExp: [^\t\x20-\x7e\x80-\xff]
+      1    0.0%    0.5%  LazyCompile: *nextTick node:internal/process/task_queues:104:18
+      1    0.0%    0.5%  LazyCompile: *next /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/index.js:176:16
+      1    0.0%    0.5%  LazyCompile: *fastparse /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/parseurl/index.js:95:20
+
+ [C++]:
+   ticks  total  nonlib   name
+     56    0.1%   27.1%  __write
+     35    0.1%   16.9%  fwrite
+     18    0.0%    8.7%  std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)
+     18    0.0%    8.7%  __pthread_cond_wait
+     10    0.0%    4.8%  _IO_file_xsputn
+      9    0.0%    4.3%  epoll_pwait
+      9    0.0%    4.3%  __GI___pthread_mutex_unlock
+      6    0.0%    2.9%  __libc_read
+      5    0.0%    2.4%  std::ostream::sentry::sentry(std::ostream&)
+      5    0.0%    2.4%  __libc_malloc
+      4    0.0%    1.9%  __mprotect
+      3    0.0%    1.4%  std::ostream& std::ostream::_M_insert<long>(long)
+      3    0.0%    1.4%  __pthread_cond_signal
+      2    0.0%    1.0%  __lll_lock_wait
+      2    0.0%    1.0%  __libc_write
+      2    0.0%    1.0%  _IO_default_xsputn
+      1    0.0%    0.5%  std::string::reserve(unsigned long)
+      1    0.0%    0.5%  std::__detail::_List_node_base::_M_hook(std::__detail::_List_node_base*)
+      1    0.0%    0.5%  operator new(unsigned long)
+      1    0.0%    0.5%  operator delete[](void*)
+      1    0.0%    0.5%  epoll_ctl
+      1    0.0%    0.5%  do_futex_wait.constprop.0
+      1    0.0%    0.5%  cfree
+      1    0.0%    0.5%  __munmap
+      1    0.0%    0.5%  __mmap
+      1    0.0%    0.5%  __GI___pthread_mutex_lock
+
+ [Summary]:
+   ticks  total  nonlib   name
+     10    0.0%    4.8%  JavaScript
+    197    0.4%   95.2%  C++
+    146    0.3%   70.5%  GC
+  52193   99.6%          Shared libraries
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+     39   34.5%    0.1%  __write
+     32   28.3%    0.1%  fwrite
+     17   15.0%    0.0%  std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)
+      9    8.0%    0.0%  _IO_file_xsputn
+      3    2.7%    0.0%  std::ostream& std::ostream::_M_insert<long>(long)
+      3    2.7%    0.0%  __libc_malloc
+      2    1.8%    0.0%  std::ostream::sentry::sentry(std::ostream&)
+      2    1.8%    0.0%  __lll_lock_wait
+      2    1.8%    0.0%  __GI___pthread_mutex_unlock
+      2    1.8%    0.0%  _IO_default_xsputn
+      1    0.9%    0.0%  std::__detail::_List_node_base::_M_hook(std::__detail::_List_node_base*)
+      1    0.9%    0.0%  operator new(unsigned long)
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+  52159   99.5%  /usr/bin/node
+  51673   99.1%    /usr/bin/node
+  51166   99.0%      LazyCompile: ~pbkdf2Sync node:internal/crypto/pbkdf2:68:20
+  51069   99.8%        LazyCompile: ~<anonymous> /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/server.js:31:23
+  51069  100.0%          LazyCompile: ~handle /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/layer.js:86:49
+  51069  100.0%            LazyCompile: ~next /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/route.js:114:16
+

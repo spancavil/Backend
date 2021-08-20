@@ -1,0 +1,366 @@
+Statistical profiling result from nobloq-v8.log, (3401 ticks, 3 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+   2261   66.5%          /usr/bin/node
+     37    1.1%          /usr/lib/x86_64-linux-gnu/libc-2.31.so
+      4    0.1%          /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+      7    0.2%    0.6%  LazyCompile: *normalizeString node:path:66:25
+
+ [C++]:
+   ticks  total  nonlib   name
+    672   19.8%   61.1%  epoll_pwait
+    218    6.4%   19.8%  __sched_yield
+     80    2.4%    7.3%  __write
+     31    0.9%    2.8%  fwrite
+     17    0.5%    1.5%  __lll_lock_wait
+     17    0.5%    1.5%  __GI___pthread_mutex_unlock
+     14    0.4%    1.3%  std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)
+      8    0.2%    0.7%  _IO_file_xsputn
+      7    0.2%    0.6%  __pthread_cond_signal
+      6    0.2%    0.5%  __pthread_cond_wait
+      3    0.1%    0.3%  std::ostream::sentry::sentry(std::ostream&)
+      3    0.1%    0.3%  __libc_read
+      2    0.1%    0.2%  __libc_malloc
+      2    0.1%    0.2%  __GI___pthread_mutex_lock
+      1    0.0%    0.1%  std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<unsigned long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, unsigned long) const
+      1    0.0%    0.1%  std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const
+      1    0.0%    0.1%  std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::do_put(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const
+      1    0.0%    0.1%  pthread_sigmask
+      1    0.0%    0.1%  operator new(unsigned long)
+      1    0.0%    0.1%  operator delete(void*)
+      1    0.0%    0.1%  cfree
+      1    0.0%    0.1%  __mprotect
+      1    0.0%    0.1%  _IO_file_sync
+
+ [Summary]:
+   ticks  total  nonlib   name
+      7    0.2%    0.6%  JavaScript
+   1089   32.0%   99.1%  C++
+    164    4.8%   14.9%  GC
+   2302   67.7%          Shared libraries
+      3    0.1%          Unaccounted
+
+ [C++ entry points]:
+   ticks    cpp   total   name
+     27   30.7%    0.8%  fwrite
+     26   29.5%    0.8%  __write
+     13   14.8%    0.4%  std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)
+      8    9.1%    0.2%  _IO_file_xsputn
+      4    4.5%    0.1%  __GI___pthread_mutex_unlock
+      3    3.4%    0.1%  std::ostream::sentry::sentry(std::ostream&)
+      2    2.3%    0.1%  __libc_malloc
+      1    1.1%    0.0%  std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const
+      1    1.1%    0.0%  std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::do_put(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const
+      1    1.1%    0.0%  operator new(unsigned long)
+      1    1.1%    0.0%  operator delete(void*)
+      1    1.1%    0.0%  cfree
+
+ [Bottom up (heavy) profile]:
+  Note: percentage shows a share of a particular caller in the total
+  amount of its parent calls.
+  Callers occupying less than 1.0% are not shown.
+
+   ticks parent  name
+   2261   66.5%  /usr/bin/node
+    879   38.9%    /usr/bin/node
+    289   32.9%      LazyCompile: ~writevGeneric node:internal/stream_base_commons:122:23
+    289  100.0%        LazyCompile: ~Socket._writeGeneric node:net:754:42
+    289  100.0%          LazyCompile: ~Socket._writev node:net:786:36
+    289  100.0%            LazyCompile: ~doWrite node:internal/streams/writable:398:17
+    115   13.1%      LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+    108   93.9%        LazyCompile: ~nativeModuleRequire node:internal/bootstrap/loaders:332:29
+     16   14.8%          Function: ~<anonymous> node:crypto:1:1
+     16  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+     11   10.2%          Function: ~<anonymous> node:http:1:1
+     11  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+     10    9.3%          Function: ~<anonymous> node:internal/modules/esm/loader:1:1
+     10  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      8    7.4%          Function: ~<anonymous> node:tty:1:1
+      8  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      6    5.6%          LazyCompile: ~initializeCJSLoader node:internal/bootstrap/pre_execution:421:29
+      6  100.0%            LazyCompile: ~prepareMainThreadExecution node:internal/bootstrap/pre_execution:22:36
+      5    4.6%          Function: ~<anonymous> node:internal/cluster/primary:1:1
+      5  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      5    4.6%          Function: ~<anonymous> node:internal/child_process:1:1
+      5  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      5    4.6%          Function: ~<anonymous> node:_http_client:1:1
+      5  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      4    3.7%          Function: ~<anonymous> node:internal/modules/esm/get_source:1:1
+      4  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      3    2.8%          Function: ~<anonymous> node:internal/process/esm_loader:1:1
+      3  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      3    2.8%          Function: ~<anonymous> node:internal/crypto/hkdf:1:1
+      3  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      3    2.8%          Function: ~<anonymous> node:child_process:1:1
+      3  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      2    1.9%          LazyCompile: ~lazyRequire node:internal/crypto/util:67:21
+      2  100.0%            LazyCompile: ~get node:crypto:287:8
+      2    1.9%          LazyCompile: ~lazyLoadStreams node:fs:2793:25
+      2  100.0%            LazyCompile: ~get ReadStream node:fs:2934:17
+      2    1.9%          LazyCompile: ~initializeSourceMapsHandlers node:internal/bootstrap/pre_execution:458:38
+      2  100.0%            LazyCompile: ~prepareMainThreadExecution node:internal/bootstrap/pre_execution:22:36
+      2    1.9%          Function: ~<anonymous> node:internal/source_map/source_map_cache:1:1
+      2  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      2    1.9%          Function: ~<anonymous> node:internal/modules/esm/module_map:1:1
+      2  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      2    1.9%          Function: ~<anonymous> node:internal/modules/cjs/loader:1:1
+      2  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      2    1.9%          Function: ~<anonymous> node:internal/main/run_main_module:1:1
+      2    1.9%          Function: ~<anonymous> node:internal/crypto/pbkdf2:1:1
+      2  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      2    1.9%          Function: ~<anonymous> node:_http_common:1:1
+      2  100.0%            LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      7    6.1%        LazyCompile: ~compileForPublicLoader node:internal/bootstrap/loaders:246:25
+      7  100.0%          LazyCompile: ~loadNativeModule node:internal/modules/cjs/helpers:36:26
+      7  100.0%            LazyCompile: ~Module._load node:internal/modules/cjs/loader:757:24
+    107   12.2%      LazyCompile: ~pbkdf2Sync node:internal/crypto/pbkdf2:68:20
+    107  100.0%        LazyCompile: ~<anonymous> /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/server.js:13:21
+    107  100.0%          LazyCompile: ~handle /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/layer.js:86:49
+    107  100.0%            LazyCompile: ~next /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/route.js:114:16
+     47    5.3%      LazyCompile: ~compileFunction node:vm:308:25
+     47  100.0%        LazyCompile: ~wrapSafe node:internal/modules/cjs/loader:1017:18
+     47  100.0%          LazyCompile: ~Module._compile node:internal/modules/cjs/loader:1055:37
+     47  100.0%            LazyCompile: ~Module._extensions..js node:internal/modules/cjs/loader:1110:37
+     21    2.4%      /usr/bin/node
+      6   28.6%        LazyCompile: ~parseQueryStringValues /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/qs/lib/parse.js:41:50
+      6  100.0%          LazyCompile: ~module.exports /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/qs/lib/parse.js:222:27
+      6  100.0%            LazyCompile: ~parseExtendedQueryString /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/utils.js:291:34
+      3   14.3%        LazyCompile: ~checkInvalidHeaderChar node:_http_common:232:32
+      3  100.0%          LazyCompile: ~<anonymous> node:_http_outgoing:561:45
+      3  100.0%            LazyCompile: ~setHeader node:_http_outgoing:571:57
+      2    9.5%        LazyCompile: ~header /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/response.js:754:29
+      2  100.0%          LazyCompile: ~send /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/response.js:107:25
+      2  100.0%            LazyCompile: ~sendStatus /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/response.js:353:37
+      1    4.8%        LazyCompile: ~toIdentifier /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/toidentifier/index.js:22:23
+      1  100.0%          LazyCompile: ~forEachCode /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/http-errors/index.js:243:38
+      1  100.0%            /usr/bin/node
+      1    4.8%        LazyCompile: ~stat node:internal/modules/cjs/loader:151:14
+      1  100.0%          LazyCompile: ~tryFile node:internal/modules/cjs/loader:384:17
+      1  100.0%            LazyCompile: ~tryExtensions node:internal/modules/cjs/loader:400:23
+      1    4.8%        LazyCompile: ~populateMaps /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/mime-types/index.js:154:23
+      1  100.0%          Function: ~<anonymous> /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/mime-types/index.js:1:1
+      1  100.0%            LazyCompile: ~Module._compile node:internal/modules/cjs/loader:1055:37
+      1    4.8%        LazyCompile: ~pipe /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/send/index.js:510:43
+      1  100.0%          LazyCompile: ~serveStatic /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/serve-static/index.js:72:31
+      1  100.0%            LazyCompile: ~handle /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/layer.js:86:49
+      1    4.8%        LazyCompile: ~parse /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/content-type/index.js:106:16
+      1  100.0%          LazyCompile: ~setCharset /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/utils.js:250:41
+      1  100.0%            LazyCompile: ~send /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/response.js:107:25
+      1    4.8%        LazyCompile: ~format /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/content-type/index.js:65:17
+      1  100.0%          LazyCompile: ~setCharset /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/utils.js:250:41
+      1  100.0%            LazyCompile: ~send /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/response.js:107:25
+      1    4.8%        LazyCompile: ~expressInit /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/middleware/init.js:29:30
+      1  100.0%          LazyCompile: ~handle /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/layer.js:86:49
+      1  100.0%            LazyCompile: ~trim_prefix /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/index.js:288:23
+      1    4.8%        LazyCompile: ~createError /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/http-errors/index.js:48:22
+      1  100.0%          LazyCompile: ~error /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/send/index.js:267:45
+      1  100.0%            LazyCompile: ~onStatError /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/send/index.js:416:57
+      1    4.8%        LazyCompile: ~<anonymous> /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/server.js:79:33
+      1  100.0%          LazyCompile: ~onceWrapper node:events:508:21
+      1  100.0%            LazyCompile: ~emit node:events:343:44
+      1    4.8%        Function: ~<anonymous> node:internal/net:1:1
+      1  100.0%          LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      1  100.0%            LazyCompile: ~nativeModuleRequire node:internal/bootstrap/loaders:332:29
+     15    1.7%      LazyCompile: ~toString node:buffer:781:46
+     14   93.3%        LazyCompile: ~<anonymous> /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/server.js:68:70
+     14  100.0%          LazyCompile: ~job.ondone node:internal/crypto/pbkdf2:56:16
+      1    6.7%        LazyCompile: ~readFileSync node:fs:447:22
+      1  100.0%          LazyCompile: ~Module._extensions..js node:internal/modules/cjs/loader:1110:37
+      1  100.0%            LazyCompile: ~Module.load node:internal/modules/cjs/loader:969:33
+     14    1.6%      LazyCompile: ~writeHead node:_http_server:270:19
+     14  100.0%        LazyCompile: ~_implicitHeader node:_http_server:265:68
+     14  100.0%          LazyCompile: ~write_ node:_http_outgoing:727:16
+     14  100.0%            LazyCompile: ~end node:_http_outgoing:830:45
+     14    1.6%      LazyCompile: ~sendStatus /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/response.js:353:37
+     14  100.0%        LazyCompile: ~<anonymous> /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/server.js:68:70
+     14  100.0%          LazyCompile: ~job.ondone node:internal/crypto/pbkdf2:56:16
+     10    1.1%      LazyCompile: ~originalurl /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/parseurl/index.js:65:22
+     10  100.0%        LazyCompile: ~serveStatic /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/serve-static/index.js:72:31
+      6   60.0%          LazyCompile: ~handle /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/layer.js:86:49
+      6  100.0%            LazyCompile: ~trim_prefix /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/index.js:288:23
+      4   40.0%          LazyCompile: *next /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/index.js:176:16
+      4  100.0%            LazyCompile: ~expressInit /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/middleware/init.js:29:30
+
+    672   19.8%  epoll_pwait
+
+    218    6.4%  __sched_yield
+
+     80    2.4%  __write
+     26   32.5%    /usr/bin/node
+      2    7.7%      /usr/bin/node
+      1   50.0%        LazyCompile: ~match /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/layer.js:110:39
+      1  100.0%          LazyCompile: ~matchLayer /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/index.js:572:20
+      1  100.0%            LazyCompile: ~next /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/index.js:176:16
+      1   50.0%        LazyCompile: ~checkIsHttpToken node:_http_common:221:26
+      1  100.0%          LazyCompile: ~<anonymous> node:_http_outgoing:555:44
+      1  100.0%            LazyCompile: ~setHeader node:_http_outgoing:571:57
+      1    3.8%      LazyCompile: ~write_ node:_http_outgoing:727:16
+      1  100.0%        LazyCompile: ~end node:_http_outgoing:830:45
+      1  100.0%          LazyCompile: ~send /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/response.js:107:25
+      1  100.0%            LazyCompile: ~sendStatus /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/response.js:353:37
+      1    3.8%      LazyCompile: ~wrapfunction /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/depd/index.js:397:23
+      1  100.0%        Function: ~<anonymous> /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/response.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile node:internal/modules/cjs/loader:1055:37
+      1  100.0%            LazyCompile: ~Module._extensions..js node:internal/modules/cjs/loader:1110:37
+      1    3.8%      LazyCompile: ~toRealPath node:internal/modules/cjs/loader:393:20
+      1  100.0%        LazyCompile: ~Module._findPath node:internal/modules/cjs/loader:494:28
+      1  100.0%          LazyCompile: ~resolveMainPath node:internal/modules/run_main:11:25
+      1  100.0%            LazyCompile: ~executeUserEntryPoint node:internal/modules/run_main:72:31
+      1    3.8%      LazyCompile: ~setupWarningHandler node:internal/bootstrap/pre_execution:141:29
+      1  100.0%        LazyCompile: ~prepareMainThreadExecution node:internal/bootstrap/pre_execution:22:36
+      1  100.0%          Function: ~<anonymous> node:internal/main/run_main_module:1:1
+      1    3.8%      LazyCompile: ~resOnFinish node:_http_server:787:21
+      1  100.0%        LazyCompile: ~emit node:events:343:44
+      1  100.0%          LazyCompile: ~onFinish node:_http_outgoing:825:18
+      1  100.0%            LazyCompile: ~callback node:internal/streams/writable:550:44
+      1    3.8%      LazyCompile: ~readFileSync node:fs:447:22
+      1  100.0%        LazyCompile: ~Module._extensions..js node:internal/modules/cjs/loader:1110:37
+      1  100.0%          LazyCompile: ~Module.load node:internal/modules/cjs/loader:969:33
+      1  100.0%            LazyCompile: ~Module._load node:internal/modules/cjs/loader:757:24
+      1    3.8%      LazyCompile: ~push node:internal/fixed_queue:99:7
+      1  100.0%        LazyCompile: ~nextTick node:internal/process/task_queues:104:18
+      1  100.0%          LazyCompile: ~defaultTriggerAsyncIdScope node:internal/async_hooks:443:36
+      1  100.0%            LazyCompile: ~setupListenHandle node:net:1268:27
+      1    3.8%      LazyCompile: ~processTimers node:internal/timers:485:25
+      1    3.8%      LazyCompile: ~processTicksAndRejections node:internal/process/task_queues:68:35
+      1    3.8%      LazyCompile: ~prepareMainThreadExecution node:internal/bootstrap/pre_execution:22:36
+      1  100.0%        Function: ~<anonymous> node:internal/main/run_main_module:1:1
+      1    3.8%      LazyCompile: ~pipe /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/send/index.js:510:43
+      1  100.0%        LazyCompile: ~serveStatic /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/serve-static/index.js:72:31
+      1  100.0%          LazyCompile: ~handle /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/layer.js:86:49
+      1  100.0%            LazyCompile: ~trim_prefix /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/index.js:288:23
+      1    3.8%      LazyCompile: ~parsersCb node:_http_common:170:65
+      1  100.0%        LazyCompile: ~alloc node:internal/freelist:15:8
+      1  100.0%          LazyCompile: ~connectionListenerInternal node:_http_server:442:36
+      1  100.0%            LazyCompile: ~defaultTriggerAsyncIdScope node:internal/async_hooks:443:36
+      1    3.8%      LazyCompile: ~parserOnIncoming node:_http_server:851:26
+      1  100.0%        LazyCompile: ~parserOnHeadersComplete node:_http_common:77:33
+      1    3.8%      LazyCompile: ~listOnTimeout node:internal/timers:505:25
+      1  100.0%        LazyCompile: ~processTimers node:internal/timers:485:25
+      1    3.8%      LazyCompile: ~lazyrouter /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/application.js:137:37
+      1  100.0%        LazyCompile: ~use /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/application.js:187:23
+      1  100.0%          Function: ~<anonymous> /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/server.js:1:1
+      1  100.0%            LazyCompile: ~Module._compile node:internal/modules/cjs/loader:1055:37
+      1    3.8%      LazyCompile: ~initializeReportSignalHandlers node:internal/bootstrap/pre_execution:201:40
+      1  100.0%        LazyCompile: ~prepareMainThreadExecution node:internal/bootstrap/pre_execution:22:36
+      1  100.0%          Function: ~<anonymous> node:internal/main/run_main_module:1:1
+      1    3.8%      LazyCompile: ~debug node:internal/util/debuglog:76:15
+      1  100.0%        LazyCompile: ~logger node:internal/util/debuglog:96:18
+      1  100.0%          LazyCompile: ~parserOnHeadersComplete node:_http_common:77:33
+      1    3.8%      LazyCompile: ~createHash node:crypto:129:20
+      1  100.0%        LazyCompile: ~entitytag /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/etag/index.js:39:20
+      1  100.0%          LazyCompile: ~etag /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/etag/index.js:70:15
+      1  100.0%            LazyCompile: ~generateETag /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/utils.js:275:32
+      1    3.8%      LazyCompile: ~createDebug /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/debug/src/debug.js:63:21
+      1  100.0%        Function: ~<anonymous> /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/finalhandler/index.js:1:1
+      1  100.0%          LazyCompile: ~Module._compile node:internal/modules/cjs/loader:1055:37
+      1  100.0%            LazyCompile: ~Module._extensions..js node:internal/modules/cjs/loader:1110:37
+      1    3.8%      LazyCompile: ~allocUnsafe node:buffer:371:42
+      1  100.0%        LazyCompile: ~tryCreateBuffer node:fs:411:25
+      1  100.0%          LazyCompile: ~readFileSync node:fs:447:22
+      1  100.0%            LazyCompile: ~Module._extensions..js node:internal/modules/cjs/loader:1110:37
+      1    3.8%      LazyCompile: ~Module._resolveLookupPaths node:internal/modules/cjs/loader:667:38
+      1  100.0%        LazyCompile: ~Module._resolveFilename node:internal/modules/cjs/loader:848:35
+      1  100.0%          LazyCompile: ~Module._load node:internal/modules/cjs/loader:757:24
+      1  100.0%            LazyCompile: ~executeUserEntryPoint node:internal/modules/run_main:72:31
+      1    3.8%      LazyCompile: ~<anonymous> node:internal/bootstrap/loaders:273:15
+      1  100.0%        /usr/bin/node
+      1  100.0%          LazyCompile: ~getESMFacade node:internal/bootstrap/loaders:264:15
+      1  100.0%            LazyCompile: ~compileForPublicLoader node:internal/bootstrap/loaders:246:25
+      1    3.8%      Function: ~<anonymous> node:internal/fs/promises:1:1
+      1  100.0%        LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      1  100.0%          LazyCompile: ~nativeModuleRequire node:internal/bootstrap/loaders:332:29
+      1  100.0%            Function: ~<anonymous> node:internal/modules/esm/get_source:1:1
+
+     37    1.1%  /usr/lib/x86_64-linux-gnu/libc-2.31.so
+     27   73.0%    /usr/bin/node
+      4   14.8%      /usr/bin/node
+      1   25.0%        LazyCompile: ~readPackage node:internal/modules/cjs/loader:290:21
+      1  100.0%          LazyCompile: ~readPackageScope node:internal/modules/cjs/loader:321:26
+      1  100.0%            LazyCompile: ~trySelf node:internal/modules/cjs/loader:441:17
+      1   25.0%        LazyCompile: ~normalize node:path:1127:12
+      1  100.0%          LazyCompile: ~join node:path:1166:7
+      1  100.0%            LazyCompile: ~pipe /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/send/index.js:510:43
+      1   25.0%        LazyCompile: ~merge /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/qs/lib/utils.js:45:27
+      1  100.0%          LazyCompile: ~module.exports /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/qs/lib/parse.js:222:27
+      1  100.0%            LazyCompile: ~parseExtendedQueryString /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/utils.js:291:34
+      1   25.0%        LazyCompile: ~callSiteToString /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/depd/lib/compat/index.js:21:76
+      1  100.0%          LazyCompile: ~get /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/depd/lib/compat/index.js:54:16
+      1  100.0%            Function: ~<anonymous> /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/depd/index.js:1:1
+      3   11.1%      LazyCompile: ~toRealPath node:internal/modules/cjs/loader:393:20
+      3  100.0%        LazyCompile: ~Module._findPath node:internal/modules/cjs/loader:494:28
+      3  100.0%          LazyCompile: ~resolveMainPath node:internal/modules/run_main:11:25
+      3  100.0%            LazyCompile: ~executeUserEntryPoint node:internal/modules/run_main:72:31
+      2    7.4%      LazyCompile: ~patchProcessObject node:internal/bootstrap/pre_execution:81:28
+      2  100.0%        LazyCompile: ~prepareMainThreadExecution node:internal/bootstrap/pre_execution:22:36
+      2  100.0%          Function: ~<anonymous> node:internal/main/run_main_module:1:1
+      1    3.7%      LazyCompile: ~wrapSafe node:internal/modules/cjs/loader:1017:18
+      1  100.0%        LazyCompile: ~Module._compile node:internal/modules/cjs/loader:1055:37
+      1  100.0%          LazyCompile: ~Module._extensions..js node:internal/modules/cjs/loader:1110:37
+      1  100.0%            LazyCompile: ~Module.load node:internal/modules/cjs/loader:969:33
+      1    3.7%      LazyCompile: ~setupListenHandle node:net:1268:27
+      1  100.0%        LazyCompile: ~listenInCluster node:net:1353:25
+      1  100.0%          LazyCompile: ~Server.listen node:net:1395:35
+      1  100.0%            LazyCompile: ~listen /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/application.js:616:29
+      1    3.7%      LazyCompile: ~setHeader node:_http_outgoing:571:57
+      1  100.0%        LazyCompile: ~header /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/response.js:754:29
+      1  100.0%          LazyCompile: ~send /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/response.js:107:25
+      1  100.0%            LazyCompile: ~sendStatus /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/response.js:353:37
+      1    3.7%      LazyCompile: ~realpathSync node:fs:2398:22
+      1  100.0%        LazyCompile: ~toRealPath node:internal/modules/cjs/loader:393:20
+      1  100.0%          LazyCompile: ~Module._findPath node:internal/modules/cjs/loader:494:28
+      1  100.0%            LazyCompile: ~resolveMainPath node:internal/modules/run_main:11:25
+      1    3.7%      LazyCompile: ~prepareMainThreadExecution node:internal/bootstrap/pre_execution:22:36
+      1  100.0%        Function: ~<anonymous> node:internal/main/run_main_module:1:1
+      1    3.7%      LazyCompile: ~pipe /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/send/index.js:510:43
+      1  100.0%        LazyCompile: ~serveStatic /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/serve-static/index.js:72:31
+      1  100.0%          LazyCompile: ~handle /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/layer.js:86:49
+      1  100.0%            LazyCompile: ~trim_prefix /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/index.js:288:23
+      1    3.7%      LazyCompile: ~parserOnIncoming node:_http_server:851:26
+      1  100.0%        LazyCompile: ~parserOnHeadersComplete node:_http_common:77:33
+      1    3.7%      LazyCompile: ~onstat /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/send/index.js:721:33
+      1  100.0%        LazyCompile: ~<anonymous> node:fs:194:10
+      1    3.7%      LazyCompile: ~fastparse /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/parseurl/index.js:95:20
+      1  100.0%        LazyCompile: ~parseurl /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/parseurl/index.js:35:19
+      1  100.0%          LazyCompile: ~getPathname /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/index.js:526:21
+      1  100.0%            LazyCompile: ~next /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/router/index.js:176:16
+      1    3.7%      LazyCompile: ~defaultTriggerAsyncIdScope node:internal/async_hooks:443:36
+      1  100.0%        LazyCompile: ~setupListenHandle node:net:1268:27
+      1  100.0%          LazyCompile: ~listenInCluster node:net:1353:25
+      1  100.0%            LazyCompile: ~Server.listen node:net:1395:35
+      1    3.7%      LazyCompile: ~decode /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/qs/lib/utils.js:108:23
+      1  100.0%        LazyCompile: ~parseQueryStringValues /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/qs/lib/parse.js:41:50
+      1  100.0%          LazyCompile: ~module.exports /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/qs/lib/parse.js:222:27
+      1  100.0%            LazyCompile: ~parseExtendedQueryString /home/sebita/Data/Cursos/Coderhouse/Backend/32 - Logs II Artillery y Cannon/profiling/node_modules/express/lib/utils.js:291:34
+      1    3.7%      LazyCompile: ~append node:internal/linkedlist:29:16
+      1  100.0%        LazyCompile: ~insert node:internal/timers:350:16
+      1  100.0%          LazyCompile: ~setUnrefTimeout node:internal/timers:372:25
+      1  100.0%            LazyCompile: ~cache node:internal/http:26:15
+      1    3.7%      LazyCompile: ~afterWrite node:internal/streams/writable:487:20
+      1  100.0%        LazyCompile: ~afterWriteTick node:internal/streams/writable:482:24
+      1  100.0%          LazyCompile: ~processTicksAndRejections node:internal/process/task_queues:68:35
+      1    3.7%      LazyCompile: ~_write node:internal/streams/writable:283:16
+      1  100.0%        LazyCompile: ~Writable.write node:internal/streams/writable:333:36
+      1  100.0%          LazyCompile: ~value node:internal/console/constructor:261:20
+      1  100.0%            LazyCompile: ~log node:internal/console/constructor:362:6
+      1    3.7%      LazyCompile: ~Module.load node:internal/modules/cjs/loader:969:33
+      1  100.0%        LazyCompile: ~Module._load node:internal/modules/cjs/loader:757:24
+      1  100.0%          LazyCompile: ~Module.require node:internal/modules/cjs/loader:997:36
+      1  100.0%            LazyCompile: ~require node:internal/modules/cjs/helpers:93:31
+      1    3.7%      LazyCompile: ~Module._extensions..json node:internal/modules/cjs/loader:1158:39
+      1  100.0%        LazyCompile: ~Module.load node:internal/modules/cjs/loader:969:33
+      1  100.0%          LazyCompile: ~Module._load node:internal/modules/cjs/loader:757:24
+      1  100.0%            LazyCompile: ~Module.require node:internal/modules/cjs/loader:997:36
+      1    3.7%      Function: ~<anonymous> node:internal/modules/cjs/helpers:1:1
+      1  100.0%        LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      1  100.0%          LazyCompile: ~nativeModuleRequire node:internal/bootstrap/loaders:332:29
+      1  100.0%            Function: ~<anonymous> node:internal/source_map/source_map_cache:1:1
+      1    3.7%      Function: ~<anonymous> node:internal/fs/promises:1:1
+      1  100.0%        LazyCompile: ~compileForInternalLoader node:internal/bootstrap/loaders:299:27
+      1  100.0%          LazyCompile: ~nativeModuleRequire node:internal/bootstrap/loaders:332:29
+      1  100.0%            Function: ~<anonymous> node:internal/modules/esm/get_source:1:1
+
