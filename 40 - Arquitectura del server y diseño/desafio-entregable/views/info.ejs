@@ -1,0 +1,21 @@
+<%- include('./layout')-%>
+    <style>
+        body {
+            margin: 10px;
+            padding: 5px;
+            text-align: left;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+    </style>
+        <h3> Argumentos de entrada: <%=entrada%></h3>
+        <h3> Plataforma: <%=plataforma%></h3>
+        <h3> Versión de node: <%=version%></h3>
+        <h3> Uso de memoria: <%=memoria%></h3>
+        <h3> Path de ejecución: <%=path%></h3>
+        <h3> Process ID: <%=pid%></h3>
+        <h3> Carpeta de trabajo: <%=current%></h3>
+        <h3> Nro de CPU's del server: <%=nrocpus%></h3>
+        <button class="btn btn-success my-3" onclick="location.href='/'">Back</button>
+    </body>
+
+</html>

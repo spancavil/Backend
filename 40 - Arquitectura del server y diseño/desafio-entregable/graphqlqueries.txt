@@ -1,0 +1,27 @@
+Guardar un producto
+mutation{postProduct (
+    itle: "Aceite de Cannabis",
+    price: "800",
+    thumbnail:"https://cdn-icons-png.flaticon.com/512/2666/2666895.png")
+	{
+    id
+  }
+}
+
+Get all products
+
+{products{
+    id
+    title
+    price
+    thumbnail
+}}
+
+Get product by id
+{
+  productById(id: 1){
+    id
+    title
+    price
+  }
+}
