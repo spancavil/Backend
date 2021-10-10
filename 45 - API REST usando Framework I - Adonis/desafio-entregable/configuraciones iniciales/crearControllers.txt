@@ -1,0 +1,7 @@
+Creamos un controller (el cual tendrá una route asociada)
+
+node ace make:controller <NombreDelController>
+
+Luego dentro ponemos el código correspondiente (ver ProductsController)
+
+node ace list:routes (listamos las rutas disponibles)

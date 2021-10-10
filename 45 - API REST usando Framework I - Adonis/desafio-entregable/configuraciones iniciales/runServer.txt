@@ -1,0 +1,5 @@
+Para poner a correr el server
+
+node ace serve --watch
+
+Modo watch para que detecte los cambios

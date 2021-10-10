@@ -1,0 +1,25 @@
+1) run (install dependency) :
+
+> npm i @adonisjs/lucid
+# or
+> yarn add @adonisjs/lucid
+
+2) and (setup lucid) :
+
+> node ace configure @adonisjs/lucid
+
+3)Creando el modelo con su migración:
+
+node ace make:model Cupcake --migration
+
+4) Verificamos que la migracion se encuentra pending:
+
+node ace migration:status
+
+5) Podemos hacer una modificación del modelo en Models
+
+app/Models y lo cambiamos a gusto (basándonos en Knex);
+
+5) Ejecutamos la migración para crear la db:
+
+node ace migration:run
