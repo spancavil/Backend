@@ -1,0 +1,54 @@
+Save a product
+--------------
+
+mutation{postProduct (
+    title: "Aceite de Cannabis",
+    price: 800,
+    thumbnail:"https://cdn-icons-png.flaticon.com/512/2666/2666895.png")
+	{
+    id
+  }
+}
+
+Get all products
+----------------
+
+{products{
+    id
+    title
+    price
+    thumbnail
+}}
+
+Get product by id
+-----------------
+
+{productById(id: "614d2e3273002f368d3c4"){
+  title
+  thumbnail
+  price
+  }
+}
+
+Get all messages
+----------------
+
+{getMessages{
+  id
+  author
+  text
+  date
+}}
+
+Post a message
+--------------
+
+mutation{postMessage (
+    author: "Sebita en GraphQL superpoderoso",
+    text: "The 900",
+    date:"10/3/2021, 11:49:06 PM")
+	{
+    id
+  }
+}
+
