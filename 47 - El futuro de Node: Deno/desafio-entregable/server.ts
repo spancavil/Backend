@@ -24,7 +24,7 @@ app.handle("/", async (req: any) => {
           <title>servest</title>
         </head>
         <body style = {{backgroundColor: 'black'}}>
-            <form action="" method="post" onSubmit = {handleSubmit}>
+            <form action="/" method="post" onSubmit = {handleSubmit}>
                 <label htmlFor="POST-color">Color:</label>
                 <input id="POST-name" type="text" name="color"/>
                 <input type="submit" value="Save"/>
